@@ -30,6 +30,9 @@ namespace Yandere.Output.Components
         private void InitializeComponent()
         {
             this.ImageContent = new System.Windows.Forms.PictureBox();
+            this.saveJpgBtn = new System.Windows.Forms.Button();
+            this.savePngBtn = new System.Windows.Forms.Button();
+            this.CloseBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.ImageContent)).BeginInit();
             this.SuspendLayout();
             // 
@@ -45,11 +48,41 @@ namespace Yandere.Output.Components
             this.ImageContent.TabIndex = 0;
             this.ImageContent.TabStop = false;
             // 
+            // saveJpgBtn
+            // 
+            this.saveJpgBtn.Location = new System.Drawing.Point(12, 420);
+            this.saveJpgBtn.Name = "saveJpgBtn";
+            this.saveJpgBtn.Size = new System.Drawing.Size(79, 26);
+            this.saveJpgBtn.TabIndex = 1;
+            this.saveJpgBtn.Text = "SaveJPG";
+            this.saveJpgBtn.UseVisualStyleBackColor = true;
+            // 
+            // savePngBtn
+            // 
+            this.savePngBtn.Location = new System.Drawing.Point(97, 420);
+            this.savePngBtn.Name = "savePngBtn";
+            this.savePngBtn.Size = new System.Drawing.Size(79, 26);
+            this.savePngBtn.TabIndex = 2;
+            this.savePngBtn.Text = "SavePNG";
+            this.savePngBtn.UseVisualStyleBackColor = true;
+            // 
+            // CloseBtn
+            // 
+            this.CloseBtn.Location = new System.Drawing.Point(709, 420);
+            this.CloseBtn.Name = "CloseBtn";
+            this.CloseBtn.Size = new System.Drawing.Size(79, 26);
+            this.CloseBtn.TabIndex = 3;
+            this.CloseBtn.Text = "Close";
+            this.CloseBtn.UseVisualStyleBackColor = true;
+            // 
             // ImageViewForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.CloseBtn);
+            this.Controls.Add(this.savePngBtn);
+            this.Controls.Add(this.saveJpgBtn);
             this.Controls.Add(this.ImageContent);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Name = "ImageViewForm";
@@ -63,5 +96,8 @@ namespace Yandere.Output.Components
         #endregion
 
         private System.Windows.Forms.PictureBox ImageContent;
+        private System.Windows.Forms.Button saveJpgBtn;
+        private System.Windows.Forms.Button savePngBtn;
+        private System.Windows.Forms.Button CloseBtn;
     }
 }
