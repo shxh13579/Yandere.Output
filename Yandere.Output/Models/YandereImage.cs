@@ -51,4 +51,9 @@ namespace Yandere.Output.Models
         public int? last_noted_at { get; set; }
         public int? last_commented_at { get; set; }
     }
+
+    public enum ImageType
+    {
+        JPG,PNG
+    }
 }
