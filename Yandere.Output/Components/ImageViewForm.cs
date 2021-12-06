@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Yandere.Output.Helper;
 using Yandere.Output.Models;
 
 namespace Yandere.Output.Components
@@ -36,8 +37,9 @@ namespace Yandere.Output.Components
         {
             if (_imageInfo != null)
             {
-                ImageContent.ImageLocation = _imageInfo.jpeg_url;
+                ImageContent.ImageLocation = _imageInfo.sample_url;
                 this.Text = _imageInfo.tags;
+                SizeInfo.Text = "(" + _imageInfo.width + "x" + _imageInfo.height + ")";
             }
         }
 
@@ -47,6 +49,29 @@ namespace Yandere.Output.Components
             this.ImageContent.Dispose();
             this.Dispose();
             GC.Collect();
+        }
+
+        private void CloseBtn_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void saveJpgBtn_Click(object sender, EventArgs e)
+        {
+            FileSavingHelper.AddDownloadTask(_imageInfo.jpeg_url, ImageType.JPG, _imageInfo.id.ToString()+".jpg");
+        }
+
+        private void savePngBtn_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(_imageInfo.source))
+            {
+                FileSavingHelper.AddDownloadTask(_imageInfo.file_url, ImageType.JPG, _imageInfo.id.ToString() + ".jpg");
+            }
+            else
+            {
+                FileSavingHelper.AddDownloadTask(_imageInfo.source, ImageType.PNG, _imageInfo.id.ToString() + ".png");
+            }
+
         }
     }
 }
