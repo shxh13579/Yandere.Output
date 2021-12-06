@@ -1,0 +1,5 @@
+{
+  "publicAPI": 
+    { "GetList": "https://yande.re/post.json" }
+  
+}
