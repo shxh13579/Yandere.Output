@@ -23,6 +23,8 @@ namespace Yandere.Output.Components
 
         private YandereImage _imageInfo { get; set; }
 
+        public YandereImage ImageInfo { get { return _imageInfo; } }
+
         
 
         public ImageBrick(string url)

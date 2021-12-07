@@ -22,6 +22,22 @@ namespace Yandere.Output.Components
 
         private int page = 1;
 
+        public List<YandereImage> SelectedImages
+        {
+            get
+            {
+                var result = new List<YandereImage>();
+                foreach (ImageBrick image in MainContainer.Controls)
+                {
+                    if (image.Selected)
+                    {
+                        result.Add(image.ImageInfo);
+                    }
+                }
+                return result;
+            }
+        }
+
         private void ImageContainer_Load(object sender, EventArgs e)
         {
         }
@@ -65,12 +81,20 @@ namespace Yandere.Output.Components
             MainContainer.Controls.Add(moreBtn);
         }
 
+        public void SelectAllImages(bool isSelected)
+        {
+            foreach (ImageBrick image in MainContainer.Controls)
+            {
+                image.Selected = isSelected;
+            }
+        }
 
 
         public void InsertImage(YandereImage info)
         {
             MainContainer.Controls.Add(new ImageBrick(info) { Width = 150, Height = 150 });
         }
+
 
     }
 }

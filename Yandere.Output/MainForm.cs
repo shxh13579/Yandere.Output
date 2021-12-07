@@ -16,6 +16,8 @@ namespace Yandere.Output
     {
         private ImageQueryService _service;
 
+        private System.Timers.Timer _tagSearchTimer = new System.Timers.Timer(2000);
+
         public MainForm()
         {
             _service = new ImageQueryService();
@@ -25,11 +27,19 @@ namespace Yandere.Output
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            _tagSearchTimer.Enabled = true;
+            _tagSearchTimer.AutoReset = false;
+            _tagSearchTimer.Elapsed += (e, v) =>
+            {
+                ErrorMsg.Invoke(new Action(()=>{
+                    ErrorMsg.Text += "1";
+                }));
+            };
         }
 
         private async void button1_Click(object sender, EventArgs e)
         {
-            var data = await _service.GetList(1, "elf",100);
+            var data = await _service.GetList(1, SelectTags.Text,100);
             if (data == null)
             {
                 MessageBox.Show("error!");
@@ -46,6 +56,22 @@ namespace Yandere.Output
         }
 
         private void Container_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void SelectTags_TextChanged(object sender, EventArgs e)
+        {
+            _tagSearchTimer.Stop();
+            _tagSearchTimer.Start();
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
