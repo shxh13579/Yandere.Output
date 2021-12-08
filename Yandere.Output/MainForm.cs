@@ -1,13 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using Yandere.Output.Components;
+using Yandere.Output.Models;
 using Yandere.Output.Services;
 
 namespace Yandere.Output
@@ -17,6 +11,8 @@ namespace Yandere.Output
         private ImageQueryService _service;
 
         private System.Timers.Timer _tagSearchTimer = new System.Timers.Timer(2000);
+
+        private List<YandereImage> _markList = new List<YandereImage>();
 
         public MainForm()
         {
@@ -31,7 +27,8 @@ namespace Yandere.Output
             _tagSearchTimer.AutoReset = false;
             _tagSearchTimer.Elapsed += (e, v) =>
             {
-                ErrorMsg.Invoke(new Action(()=>{
+                ErrorMsg.Invoke(new Action(() =>
+                {
                     ErrorMsg.Text += "1";
                 }));
             };
@@ -39,14 +36,14 @@ namespace Yandere.Output
 
         private async void button1_Click(object sender, EventArgs e)
         {
-            var data = await _service.GetList(1, SelectTags.Text,100);
+            var data = await _service.GetList(1, SelectTags.Text, 100);
             if (data == null)
             {
                 MessageBox.Show("error!");
                 return;
             }
             Container.LoadData(data);
-            Container.NextPageFunction = async (page)  =>
+            Container.NextPageFunction = async (page) =>
             {
                 page += 1;
                 data = await _service.GetList(page, "elf", 100);
@@ -74,6 +71,12 @@ namespace Yandere.Output
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void MarkBtn_Click(object sender, EventArgs e)
+        {
+            var data = MainContainer.SelectedImages;
+            _markList.AddRange(data);
         }
     }
 }
