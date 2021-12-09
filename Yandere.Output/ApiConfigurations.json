@@ -1,5 +1,7 @@
 {
-  "publicAPI": 
-    { "GetList": "https://yande.re/post.json" },
+  "publicAPI": {
+    "GetList": "https://yande.re/post.json",
+    "GetTags": "https://yande.re/tag.json"
+  },
   "SavePath": "PicRepository"
 }

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using Yandere.Output.Models;
 using Yandere.Output.Services;
@@ -14,9 +16,29 @@ namespace Yandere.Output
 
         private List<YandereImage> _markList = new List<YandereImage>();
 
+        private int _currentPage = 1;
+
+        private bool _isNSFW = true;
+
+        private ImageMarkService _imageMarkService;
+
+        private int currentPage
+        {
+            get { return _currentPage; }
+            set
+            {
+                PageNumber.Invoke(new Action(() =>
+                {
+                    PageNumber.Text = value.ToString();
+                }));
+                _currentPage = value;
+            }
+        }
+
         public MainForm()
         {
             _service = new ImageQueryService();
+            _imageMarkService = new ImageMarkService();
             InitializeComponent();
 
         }
@@ -27,29 +49,46 @@ namespace Yandere.Output
             _tagSearchTimer.AutoReset = false;
             _tagSearchTimer.Elapsed += (e, v) =>
             {
-                ErrorMsg.Invoke(new Action(() =>
-                {
-                    ErrorMsg.Text += "1";
-                }));
+                //ErrorMsg.Invoke(new Action(() =>
+                //{
+                //    ErrorMsg.Text += "1";
+                //}));
             };
         }
 
         private async void button1_Click(object sender, EventArgs e)
         {
-            var data = await _service.GetList(1, SelectTags.Text, 100);
+            currentPage = 1;
+            await LoadImageData(1);
+        }
+
+        private async Task<bool> LoadImageData(int page)
+        {
+            var pageSize = 100;
+            var data = await _service.GetList(page, SelectTags.Text, pageSize);
+            if (Container.Data.Count == pageSize && Container.Data.Select(x => x.id).ToArray() == data.Select(x => x.id).ToArray())
+            {
+                return false;
+            }
+
             if (data == null)
             {
                 MessageBox.Show("error!");
-                return;
+                return false;
+            }
+            if (_isNSFW)
+            {
+                data = data.Where(x => x.rating == "e").ToList();
             }
             Container.LoadData(data);
-            Container.NextPageFunction = async (page) =>
+            Container.NextPageFunction = async (nextPage) =>
             {
-                page += 1;
-                data = await _service.GetList(page, "elf", 100);
+                nextPage += 1;
+                data = await _service.GetList(nextPage, "elf", 100);
                 Container.LoadData(data);
-                return page;
+                return nextPage;
             };
+            return true;
         }
 
         private void Container_Load(object sender, EventArgs e)
@@ -59,7 +98,7 @@ namespace Yandere.Output
 
         private void button2_Click(object sender, EventArgs e)
         {
-
+            SelectTags.Text = "";
         }
 
         private void SelectTags_TextChanged(object sender, EventArgs e)
@@ -68,15 +107,49 @@ namespace Yandere.Output
             _tagSearchTimer.Start();
         }
 
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private async void MarkBtn_Click(object sender, EventArgs e)
+        {
+            var data = Container.SelectedImages;
+            await _imageMarkService.AddMarks(new[] { "6", "7", "8", "9", "0" });
+            await _imageMarkService.AddMarks(new[] { "6", "7", "8", "9", "1" });
+            await _imageMarkService.AddMarks(data.Select(x => x.id.ToString()));
+            _markList.AddRange(data);
+        }
+
+        private void PageNumber_TextChanged(object sender, EventArgs e)
         {
 
         }
 
-        private void MarkBtn_Click(object sender, EventArgs e)
+        private async void SkipPageBtn_Click(object sender, EventArgs e)
         {
-            var data = MainContainer.SelectedImages;
-            _markList.AddRange(data);
+            if (int.TryParse(PageNumber.Text, out int page))
+            {
+                await LoadImageData(page);
+            }
+        }
+
+        private async void NextPageBtn_Click(object sender, EventArgs e)
+        {
+            var success = await LoadImageData(currentPage + 1);
+            if (success)
+            {
+                currentPage += 1;
+            }
+        }
+
+        private async void PrePageBtn_Click(object sender, EventArgs e)
+        {
+            if (currentPage > 1)
+            {
+                currentPage -= 1;
+                await LoadImageData(currentPage);
+            }
+        }
+
+        private void IsNSFWCheck_CheckedChanged(object sender, EventArgs e)
+        {
+            _isNSFW = IsNSFWCheck.Checked;
         }
     }
 }

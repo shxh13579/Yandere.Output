@@ -45,7 +45,7 @@ namespace Yandere.Output.Components
             this.ImageContent.BackColor = System.Drawing.Color.Transparent;
             this.ImageContent.Location = new System.Drawing.Point(0, 0);
             this.ImageContent.Name = "ImageContent";
-            this.ImageContent.Size = new System.Drawing.Size(307, 295);
+            this.ImageContent.Size = new System.Drawing.Size(307, 307);
             this.ImageContent.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.ImageContent.TabIndex = 0;
             this.ImageContent.TabStop = false;
@@ -56,16 +56,18 @@ namespace Yandere.Output.Components
             this.SizeInfo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.SizeInfo.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.SizeInfo.Location = new System.Drawing.Point(0, 298);
+            this.SizeInfo.Location = new System.Drawing.Point(0, 310);
             this.SizeInfo.Name = "SizeInfo";
-            this.SizeInfo.Size = new System.Drawing.Size(247, 22);
+            this.SizeInfo.Size = new System.Drawing.Size(247, 24);
             this.SizeInfo.TabIndex = 1;
+            this.SizeInfo.Text = "[SizeInfo]";
             this.SizeInfo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // DownloadBtn
             // 
+            this.DownloadBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.DownloadBtn.Image = ((System.Drawing.Image)(resources.GetObject("DownloadBtn.Image")));
-            this.DownloadBtn.Location = new System.Drawing.Point(283, 296);
+            this.DownloadBtn.Location = new System.Drawing.Point(283, 310);
             this.DownloadBtn.Name = "DownloadBtn";
             this.DownloadBtn.Size = new System.Drawing.Size(24, 24);
             this.DownloadBtn.TabIndex = 2;
@@ -73,8 +75,9 @@ namespace Yandere.Output.Components
             // 
             // FavBtn
             // 
+            this.FavBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.FavBtn.Image = ((System.Drawing.Image)(resources.GetObject("FavBtn.Image")));
-            this.FavBtn.Location = new System.Drawing.Point(253, 296);
+            this.FavBtn.Location = new System.Drawing.Point(253, 310);
             this.FavBtn.Name = "FavBtn";
             this.FavBtn.Size = new System.Drawing.Size(24, 24);
             this.FavBtn.TabIndex = 3;
@@ -82,14 +85,14 @@ namespace Yandere.Output.Components
             // 
             // ImageBrick
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.FavBtn);
             this.Controls.Add(this.DownloadBtn);
             this.Controls.Add(this.SizeInfo);
             this.Controls.Add(this.ImageContent);
             this.Name = "ImageBrick";
-            this.Size = new System.Drawing.Size(309, 325);
+            this.Size = new System.Drawing.Size(309, 335);
             this.Load += new System.EventHandler(this.ImageBrick_Load);
             this.SizeChanged += new System.EventHandler(this.ImageBrick_SizeChanged);
             ((System.ComponentModel.ISupportInitialize)(this.ImageContent)).EndInit();
