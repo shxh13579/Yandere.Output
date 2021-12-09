@@ -32,30 +32,33 @@ namespace Yandere.Output
             this.SearchBtn = new System.Windows.Forms.Button();
             this.ResetBtn = new System.Windows.Forms.Button();
             this.SelectTags = new System.Windows.Forms.ComboBox();
-            this.ErrorMsg = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
-            this.button7 = new System.Windows.Forms.Button();
-            this.button8 = new System.Windows.Forms.Button();
+            this.PrePageBtn = new System.Windows.Forms.Button();
+            this.NextPageBtn = new System.Windows.Forms.Button();
+            this.SelectAllBtn = new System.Windows.Forms.Button();
+            this.DownloadShownBtn = new System.Windows.Forms.Button();
+            this.DownloadBtn = new System.Windows.Forms.Button();
+            this.DownloadAllResultBtn = new System.Windows.Forms.Button();
+            this.SkipPageBtn = new System.Windows.Forms.Button();
             this.button9 = new System.Windows.Forms.Button();
-            this.button10 = new System.Windows.Forms.Button();
-            this.button11 = new System.Windows.Forms.Button();
+            this.MarkDownloadBtn = new System.Windows.Forms.Button();
+            this.MarkListBtn = new System.Windows.Forms.Button();
             this.MarkBtn = new System.Windows.Forms.Button();
             this.button13 = new System.Windows.Forms.Button();
             this.Container = new Yandere.Output.Components.ImageContainer();
+            this.AttributeList = new System.Windows.Forms.FlowLayoutPanel();
+            this.IsNSFWCheck = new System.Windows.Forms.CheckBox();
+            this.IsPNGCheck = new System.Windows.Forms.CheckBox();
+            this.PageNumber = new System.Windows.Forms.TextBox();
+            this.InfoMessage = new System.Windows.Forms.Label();
+            this.AttributeList.SuspendLayout();
             this.SuspendLayout();
             // 
             // SearchBtn
             // 
             this.SearchBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.SearchBtn.Location = new System.Drawing.Point(457, 7);
+            this.SearchBtn.Location = new System.Drawing.Point(349, 6);
             this.SearchBtn.Name = "SearchBtn";
-            this.SearchBtn.Size = new System.Drawing.Size(75, 28);
+            this.SearchBtn.Size = new System.Drawing.Size(75, 30);
             this.SearchBtn.TabIndex = 0;
             this.SearchBtn.Text = "Search";
             this.SearchBtn.UseVisualStyleBackColor = true;
@@ -64,9 +67,9 @@ namespace Yandere.Output
             // ResetBtn
             // 
             this.ResetBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ResetBtn.Location = new System.Drawing.Point(12, 7);
+            this.ResetBtn.Location = new System.Drawing.Point(12, 6);
             this.ResetBtn.Name = "ResetBtn";
-            this.ResetBtn.Size = new System.Drawing.Size(75, 28);
+            this.ResetBtn.Size = new System.Drawing.Size(75, 30);
             this.ResetBtn.TabIndex = 2;
             this.ResetBtn.Text = "Reset";
             this.ResetBtn.UseVisualStyleBackColor = true;
@@ -76,157 +79,134 @@ namespace Yandere.Output
             // 
             this.SelectTags.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.SelectTags.FormattingEnabled = true;
-            this.SelectTags.Location = new System.Drawing.Point(93, 6);
+            this.SelectTags.Location = new System.Drawing.Point(93, 7);
+            this.SelectTags.MinimumSize = new System.Drawing.Size(150, 0);
             this.SelectTags.Name = "SelectTags";
-            this.SelectTags.Size = new System.Drawing.Size(358, 29);
+            this.SelectTags.Size = new System.Drawing.Size(250, 29);
             this.SelectTags.TabIndex = 4;
             this.SelectTags.TextChanged += new System.EventHandler(this.SelectTags_TextChanged);
             // 
-            // ErrorMsg
+            // PrePageBtn
             // 
-            this.ErrorMsg.AutoSize = true;
-            this.ErrorMsg.Location = new System.Drawing.Point(538, 12);
-            this.ErrorMsg.Name = "ErrorMsg";
-            this.ErrorMsg.Size = new System.Drawing.Size(0, 17);
-            this.ErrorMsg.TabIndex = 5;
+            this.PrePageBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.PrePageBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.PrePageBtn.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.PrePageBtn.Location = new System.Drawing.Point(669, 6);
+            this.PrePageBtn.Name = "PrePageBtn";
+            this.PrePageBtn.Size = new System.Drawing.Size(28, 30);
+            this.PrePageBtn.TabIndex = 6;
+            this.PrePageBtn.Text = "<";
+            this.PrePageBtn.UseVisualStyleBackColor = true;
+            this.PrePageBtn.Click += new System.EventHandler(this.PrePageBtn_Click);
             // 
-            // button1
+            // NextPageBtn
             // 
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Microsoft YaHei UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.button1.Location = new System.Drawing.Point(1018, 5);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(28, 28);
-            this.button1.TabIndex = 6;
-            this.button1.Text = "<";
-            this.button1.UseVisualStyleBackColor = true;
+            this.NextPageBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.NextPageBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.NextPageBtn.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.NextPageBtn.Location = new System.Drawing.Point(843, 6);
+            this.NextPageBtn.Name = "NextPageBtn";
+            this.NextPageBtn.Size = new System.Drawing.Size(28, 30);
+            this.NextPageBtn.TabIndex = 7;
+            this.NextPageBtn.Text = ">";
+            this.NextPageBtn.UseVisualStyleBackColor = true;
+            this.NextPageBtn.Click += new System.EventHandler(this.NextPageBtn_Click);
             // 
-            // button2
+            // SelectAllBtn
             // 
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Font = new System.Drawing.Font("Microsoft YaHei UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.button2.Location = new System.Drawing.Point(1192, 7);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(28, 28);
-            this.button2.TabIndex = 7;
-            this.button2.Text = ">";
-            this.button2.UseVisualStyleBackColor = true;
+            this.SelectAllBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.SelectAllBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.SelectAllBtn.Location = new System.Drawing.Point(877, 143);
+            this.SelectAllBtn.Name = "SelectAllBtn";
+            this.SelectAllBtn.Size = new System.Drawing.Size(123, 28);
+            this.SelectAllBtn.TabIndex = 9;
+            this.SelectAllBtn.Text = "Select All";
+            this.SelectAllBtn.UseVisualStyleBackColor = true;
             // 
-            // comboBox1
+            // DownloadShownBtn
             // 
-            this.comboBox1.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(1052, 5);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(88, 29);
-            this.comboBox1.TabIndex = 8;
-            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            this.DownloadShownBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.DownloadShownBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.DownloadShownBtn.Location = new System.Drawing.Point(877, 327);
+            this.DownloadShownBtn.Name = "DownloadShownBtn";
+            this.DownloadShownBtn.Size = new System.Drawing.Size(123, 28);
+            this.DownloadShownBtn.TabIndex = 10;
+            this.DownloadShownBtn.Text = "Download All";
+            this.DownloadShownBtn.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // DownloadBtn
             // 
-            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Location = new System.Drawing.Point(1226, 143);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(123, 28);
-            this.button3.TabIndex = 9;
-            this.button3.Text = "Select All";
-            this.button3.UseVisualStyleBackColor = true;
+            this.DownloadBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.DownloadBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.DownloadBtn.Location = new System.Drawing.Point(877, 259);
+            this.DownloadBtn.Name = "DownloadBtn";
+            this.DownloadBtn.Size = new System.Drawing.Size(123, 28);
+            this.DownloadBtn.TabIndex = 12;
+            this.DownloadBtn.Text = "Download";
+            this.DownloadBtn.UseVisualStyleBackColor = true;
             // 
-            // button4
+            // DownloadAllResultBtn
             // 
-            this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button4.Location = new System.Drawing.Point(1226, 313);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(123, 28);
-            this.button4.TabIndex = 10;
-            this.button4.Text = "Download All";
-            this.button4.UseVisualStyleBackColor = true;
+            this.DownloadAllResultBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.DownloadAllResultBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.DownloadAllResultBtn.Location = new System.Drawing.Point(877, 361);
+            this.DownloadAllResultBtn.Name = "DownloadAllResultBtn";
+            this.DownloadAllResultBtn.Size = new System.Drawing.Size(123, 28);
+            this.DownloadAllResultBtn.TabIndex = 13;
+            this.DownloadAllResultBtn.Text = "Download All List";
+            this.DownloadAllResultBtn.UseVisualStyleBackColor = true;
             // 
-            // button5
+            // SkipPageBtn
             // 
-            this.button5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button5.Location = new System.Drawing.Point(1226, 245);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(123, 28);
-            this.button5.TabIndex = 11;
-            this.button5.Text = "Download Selected";
-            this.button5.UseVisualStyleBackColor = true;
-            // 
-            // button6
-            // 
-            this.button6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button6.Location = new System.Drawing.Point(1226, 211);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(123, 28);
-            this.button6.TabIndex = 12;
-            this.button6.Text = "Download";
-            this.button6.UseVisualStyleBackColor = true;
-            // 
-            // button7
-            // 
-            this.button7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button7.Location = new System.Drawing.Point(1226, 347);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(123, 28);
-            this.button7.TabIndex = 13;
-            this.button7.Text = "Download All List";
-            this.button7.UseVisualStyleBackColor = true;
-            // 
-            // button8
-            // 
-            this.button8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button8.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.button8.Location = new System.Drawing.Point(1146, 6);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(40, 28);
-            this.button8.TabIndex = 14;
-            this.button8.Text = "Go!";
-            this.button8.UseVisualStyleBackColor = true;
+            this.SkipPageBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.SkipPageBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.SkipPageBtn.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.SkipPageBtn.Location = new System.Drawing.Point(797, 6);
+            this.SkipPageBtn.Name = "SkipPageBtn";
+            this.SkipPageBtn.Size = new System.Drawing.Size(40, 30);
+            this.SkipPageBtn.TabIndex = 14;
+            this.SkipPageBtn.Text = "Go!";
+            this.SkipPageBtn.UseVisualStyleBackColor = true;
+            this.SkipPageBtn.Click += new System.EventHandler(this.SkipPageBtn_Click);
             // 
             // button9
             // 
             this.button9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button9.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button9.Location = new System.Drawing.Point(1226, 177);
+            this.button9.Location = new System.Drawing.Point(877, 177);
             this.button9.Name = "button9";
             this.button9.Size = new System.Drawing.Size(123, 28);
             this.button9.TabIndex = 15;
             this.button9.UseVisualStyleBackColor = true;
             this.button9.Visible = false;
             // 
-            // button10
+            // MarkDownloadBtn
             // 
-            this.button10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button10.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button10.Location = new System.Drawing.Point(1226, 279);
-            this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(123, 28);
-            this.button10.TabIndex = 16;
-            this.button10.Text = "Download Marks";
-            this.button10.UseVisualStyleBackColor = true;
+            this.MarkDownloadBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.MarkDownloadBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.MarkDownloadBtn.Location = new System.Drawing.Point(877, 293);
+            this.MarkDownloadBtn.Name = "MarkDownloadBtn";
+            this.MarkDownloadBtn.Size = new System.Drawing.Size(123, 28);
+            this.MarkDownloadBtn.TabIndex = 16;
+            this.MarkDownloadBtn.Text = "Download Marks";
+            this.MarkDownloadBtn.UseVisualStyleBackColor = true;
             // 
-            // button11
+            // MarkListBtn
             // 
-            this.button11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button11.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button11.Location = new System.Drawing.Point(1226, 75);
-            this.button11.Name = "button11";
-            this.button11.Size = new System.Drawing.Size(123, 28);
-            this.button11.TabIndex = 17;
-            this.button11.Text = "Mark List";
-            this.button11.UseVisualStyleBackColor = true;
+            this.MarkListBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.MarkListBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.MarkListBtn.Location = new System.Drawing.Point(877, 75);
+            this.MarkListBtn.Name = "MarkListBtn";
+            this.MarkListBtn.Size = new System.Drawing.Size(123, 28);
+            this.MarkListBtn.TabIndex = 17;
+            this.MarkListBtn.Text = "View Mark List";
+            this.MarkListBtn.UseVisualStyleBackColor = true;
             // 
             // MarkBtn
             // 
             this.MarkBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.MarkBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.MarkBtn.Location = new System.Drawing.Point(1226, 41);
+            this.MarkBtn.Location = new System.Drawing.Point(877, 41);
             this.MarkBtn.Name = "MarkBtn";
             this.MarkBtn.Size = new System.Drawing.Size(123, 28);
             this.MarkBtn.TabIndex = 18;
@@ -238,7 +218,7 @@ namespace Yandere.Output
             // 
             this.button13.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button13.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button13.Location = new System.Drawing.Point(1226, 109);
+            this.button13.Location = new System.Drawing.Point(877, 109);
             this.button13.Name = "button13";
             this.button13.Size = new System.Drawing.Size(123, 28);
             this.button13.TabIndex = 19;
@@ -247,39 +227,98 @@ namespace Yandere.Output
             // 
             // Container
             // 
+            this.Container.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.Container.BackColor = System.Drawing.Color.White;
-            this.Container.Location = new System.Drawing.Point(12, 45);
+            this.Container.Location = new System.Drawing.Point(12, 42);
             this.Container.Name = "Container";
-            this.Container.Size = new System.Drawing.Size(1208, 579);
+            this.Container.Size = new System.Drawing.Size(859, 507);
             this.Container.TabIndex = 20;
+            // 
+            // AttributeList
+            // 
+            this.AttributeList.Controls.Add(this.IsNSFWCheck);
+            this.AttributeList.Location = new System.Drawing.Point(430, 6);
+            this.AttributeList.Name = "AttributeList";
+            this.AttributeList.Size = new System.Drawing.Size(233, 30);
+            this.AttributeList.TabIndex = 21;
+            this.AttributeList.WrapContents = false;
+            // 
+            // IsNSFWCheck
+            // 
+            this.IsNSFWCheck.AutoSize = true;
+            this.IsNSFWCheck.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.IsNSFWCheck.Location = new System.Drawing.Point(3, 3);
+            this.IsNSFWCheck.Name = "IsNSFWCheck";
+            this.IsNSFWCheck.Size = new System.Drawing.Size(65, 23);
+            this.IsNSFWCheck.TabIndex = 0;
+            this.IsNSFWCheck.Text = "NSFW";
+            this.IsNSFWCheck.UseVisualStyleBackColor = true;
+            this.IsNSFWCheck.CheckedChanged += new System.EventHandler(this.IsNSFWCheck_CheckedChanged);
+            // 
+            // IsPNGCheck
+            // 
+            this.IsPNGCheck.AutoSize = true;
+            this.IsPNGCheck.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.IsPNGCheck.Location = new System.Drawing.Point(878, 211);
+            this.IsPNGCheck.Name = "IsPNGCheck";
+            this.IsPNGCheck.Size = new System.Drawing.Size(122, 42);
+            this.IsPNGCheck.TabIndex = 1;
+            this.IsPNGCheck.Text = "Download PNG\r\n(If have)";
+            this.IsPNGCheck.UseVisualStyleBackColor = true;
+            // 
+            // PageNumber
+            // 
+            this.PageNumber.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.PageNumber.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.PageNumber.Location = new System.Drawing.Point(703, 7);
+            this.PageNumber.Name = "PageNumber";
+            this.PageNumber.Size = new System.Drawing.Size(88, 28);
+            this.PageNumber.TabIndex = 22;
+            this.PageNumber.TextChanged += new System.EventHandler(this.PageNumber_TextChanged);
+            // 
+            // InfoMessage
+            // 
+            this.InfoMessage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.InfoMessage.Location = new System.Drawing.Point(878, 6);
+            this.InfoMessage.Name = "InfoMessage";
+            this.InfoMessage.Size = new System.Drawing.Size(122, 30);
+            this.InfoMessage.TabIndex = 23;
+            this.InfoMessage.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.InfoMessage.UseCompatibleTextRendering = true;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1357, 638);
+            this.ClientSize = new System.Drawing.Size(1008, 561);
+            this.Controls.Add(this.InfoMessage);
+            this.Controls.Add(this.PageNumber);
+            this.Controls.Add(this.AttributeList);
+            this.Controls.Add(this.IsPNGCheck);
             this.Controls.Add(this.Container);
             this.Controls.Add(this.button13);
             this.Controls.Add(this.MarkBtn);
-            this.Controls.Add(this.button11);
-            this.Controls.Add(this.button10);
+            this.Controls.Add(this.MarkListBtn);
+            this.Controls.Add(this.MarkDownloadBtn);
             this.Controls.Add(this.button9);
-            this.Controls.Add(this.button8);
-            this.Controls.Add(this.button7);
-            this.Controls.Add(this.button6);
-            this.Controls.Add(this.button5);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.comboBox1);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.ErrorMsg);
+            this.Controls.Add(this.SkipPageBtn);
+            this.Controls.Add(this.DownloadAllResultBtn);
+            this.Controls.Add(this.DownloadBtn);
+            this.Controls.Add(this.DownloadShownBtn);
+            this.Controls.Add(this.SelectAllBtn);
+            this.Controls.Add(this.NextPageBtn);
+            this.Controls.Add(this.PrePageBtn);
             this.Controls.Add(this.SelectTags);
             this.Controls.Add(this.ResetBtn);
             this.Controls.Add(this.SearchBtn);
+            this.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Name = "MainForm";
             this.Text = "Mark";
             this.Load += new System.EventHandler(this.MainForm_Load);
+            this.AttributeList.ResumeLayout(false);
+            this.AttributeList.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -290,24 +329,26 @@ namespace Yandere.Output
         private System.Windows.Forms.Button SearchBtn;
         private System.Windows.Forms.Button ResetBtn;
         private System.Windows.Forms.ComboBox SelectTags;
-        private System.Windows.Forms.Label ErrorMsg;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.Button button7;
-        private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.Button PrePageBtn;
+        private System.Windows.Forms.Button NextPageBtn;
+        private System.Windows.Forms.Button SelectAllBtn;
+        private System.Windows.Forms.Button DownloadShownBtn;
+        private System.Windows.Forms.Button DownloadBtn;
+        private System.Windows.Forms.Button DownloadAllResultBtn;
+        private System.Windows.Forms.Button SkipPageBtn;
         private System.Windows.Forms.Button button9;
-        private System.Windows.Forms.Button button10;
-        private System.Windows.Forms.Button button11;
+        private System.Windows.Forms.Button MarkDownloadBtn;
+        private System.Windows.Forms.Button MarkListBtn;
         private System.Windows.Forms.Button MarkBtn;
         private System.Windows.Forms.Button button13;
         private Components.ImageContainer ImageContainer;
         private Components.ImageContainer MainContainer;
         private Components.ImageContainer Container;
+        private System.Windows.Forms.FlowLayoutPanel AttributeList;
+        private System.Windows.Forms.CheckBox IsNSFWCheck;
+        private System.Windows.Forms.CheckBox IsPNGCheck;
+        private System.Windows.Forms.TextBox PageNumber;
+        private System.Windows.Forms.Label InfoMessage;
     }
 }
 
