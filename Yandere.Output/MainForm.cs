@@ -22,6 +22,7 @@ namespace Yandere.Output
 
         private ImageMarkService _imageMarkService;
 
+
         private int currentPage
         {
             get { return _currentPage; }
@@ -110,10 +111,15 @@ namespace Yandere.Output
         private async void MarkBtn_Click(object sender, EventArgs e)
         {
             var data = Container.SelectedImages;
-            await _imageMarkService.AddMarks(new[] { "6", "7", "8", "9", "0" });
-            await _imageMarkService.AddMarks(new[] { "6", "7", "8", "9", "1" });
-            await _imageMarkService.AddMarks(data.Select(x => x.id.ToString()));
-            _markList.AddRange(data);
+            var success = await _imageMarkService.AddMarks(data.Select(x => x.id));
+            if (success)
+            {
+                _markList.AddRange(data);
+            }
+            else
+            {
+                MessageBox.Show("Failed to mark image.");
+            }
         }
 
         private void PageNumber_TextChanged(object sender, EventArgs e)

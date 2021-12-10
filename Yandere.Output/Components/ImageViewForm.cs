@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Yandere.Output.Helper;
 using Yandere.Output.Models;
@@ -14,7 +7,7 @@ namespace Yandere.Output.Components
 {
     public partial class ImageViewForm : Form
     {
-        private YandereImage _imageInfo= null;
+        private YandereImage _imageInfo = null;
 
         public ImageViewForm()
         {
@@ -58,19 +51,12 @@ namespace Yandere.Output.Components
 
         private void saveJpgBtn_Click(object sender, EventArgs e)
         {
-            FileSavingHelper.AddDownloadTask(_imageInfo.jpeg_url, ImageType.JPG, _imageInfo.id.ToString()+".jpg");
+            FileSavingHelper.AddDownloadJPGTask(_imageInfo);
         }
 
         private void savePngBtn_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(_imageInfo.source))
-            {
-                FileSavingHelper.AddDownloadTask(_imageInfo.file_url, ImageType.JPG, _imageInfo.id.ToString() + ".jpg");
-            }
-            else
-            {
-                FileSavingHelper.AddDownloadTask(_imageInfo.source, ImageType.PNG, _imageInfo.id.ToString() + ".png");
-            }
+            FileSavingHelper.AddDownloadPNGTask(_imageInfo);
 
         }
     }

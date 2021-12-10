@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Yandere.Output.Helper;
 using Yandere.Output.Models;
 
 namespace Yandere.Output.Components
@@ -25,14 +22,14 @@ namespace Yandere.Output.Components
 
         public YandereImage ImageInfo { get { return _imageInfo; } }
 
-        
+        public Func<int, Task<bool>> AddMarkEvent = null;
 
         public ImageBrick(string url)
         {
             _imageInfo.preview_url = url;
             InitializeComponent();
             InitFormat();
-        } 
+        }
         public ImageBrick(YandereImage info)
         {
             _imageInfo = info;
@@ -49,13 +46,18 @@ namespace Yandere.Output.Components
         {
             MouseClick += ImageBrick_MouseClick;
             ImageContent.MouseDoubleClick += ImageBrick_MouseDoubleClick;
+            if (string.IsNullOrEmpty(_imageInfo.source))
+            {
+                FavBtn.Left += 53;
+                DownloadBtn.Left += 53;
+            }
         }
 
         private void ImageBrick_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            if(e.Button== MouseButtons.Left)
+            if (e.Button == MouseButtons.Left)
             {
-                if(Parent.Parent is ImageContainer)
+                if (Parent.Parent is ImageContainer)
                 {
                     (Parent.Parent as ImageContainer).AddImageView(_imageInfo);
                 }
@@ -94,7 +96,8 @@ namespace Yandere.Output.Components
             if (Width > Height)
             {
                 Height = Width;
-            }else if(Height > Width)
+            }
+            else if (Height > Width)
             {
                 Width = Height;
             }
@@ -110,6 +113,31 @@ namespace Yandere.Output.Components
             if (e.Button == MouseButtons.Left)
             {
                 Selected = !Selected;
+            }
+        }
+
+        private void DownloadBtn_Click(object sender, EventArgs e)
+        {
+            FileSavingHelper.AddDownloadJPGTask(_imageInfo);
+        }
+
+        private void PNGDownloadBtn_Click(object sender, EventArgs e)
+        {
+            FileSavingHelper.AddDownloadPNGTask(_imageInfo);
+        }
+
+        private async void FavBtn_Click(object sender, EventArgs e)
+        {
+            if (AddMarkEvent != null)
+            {
+                var success = await AddMarkEvent(_imageInfo.id);
+                if (success)
+                {
+                    FavBtn.Invoke(new Action(() =>
+                    {
+                        FavBtn.Image = Resouces.Favorited;
+                    }));
+                }
             }
         }
     }

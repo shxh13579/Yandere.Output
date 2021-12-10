@@ -58,14 +58,6 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing.Common" name="System.Drawing.Common, Version=5.0.0.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" />
-  <data name="DownloadBtn.Image" type="System.Drawing.Bitmap, System.Drawing.Common" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAHJJREFUOE9j
-        IAACoJhskADEBRAmeWAIGSAApdEBLgNA6lH0gEJ6P4SJArAZANK4HogxDO4HYnRD0A2AaQapxQrQDUE2
-        gKBmGEA2BGYA0ZphAGYIyIAGICZJMwyANLyHYpI1wwBII9ma6QdAAXSfPMywHgB0AydJG2DHjQAAAABJ
-        RU5ErkJggg==
-</value>
-  </data>
   <data name="FavBtn.Image" type="System.Drawing.Bitmap, System.Drawing.Common" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAALRJREFUOE+1

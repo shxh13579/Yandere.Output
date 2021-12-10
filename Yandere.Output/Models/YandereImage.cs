@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Yandere.Output.Models
+﻿namespace Yandere.Output.Models
 {
     public class YandereImage
     {
@@ -50,10 +46,12 @@ namespace Yandere.Output.Models
         public string is_note_locked { get; set; }
         public int? last_noted_at { get; set; }
         public int? last_commented_at { get; set; }
+
+        public bool IsMark { get; set; } = false;
     }
 
     public enum ImageType
     {
-        JPG,PNG
+        JPG, PNG
     }
 }

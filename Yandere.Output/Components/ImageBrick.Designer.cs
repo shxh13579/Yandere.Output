@@ -34,6 +34,7 @@ namespace Yandere.Output.Components
             this.SizeInfo = new System.Windows.Forms.Label();
             this.DownloadBtn = new System.Windows.Forms.Button();
             this.FavBtn = new System.Windows.Forms.Button();
+            this.PNGDownloadBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.ImageContent)).BeginInit();
             this.SuspendLayout();
             // 
@@ -58,7 +59,7 @@ namespace Yandere.Output.Components
             this.SizeInfo.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.SizeInfo.Location = new System.Drawing.Point(0, 310);
             this.SizeInfo.Name = "SizeInfo";
-            this.SizeInfo.Size = new System.Drawing.Size(247, 24);
+            this.SizeInfo.Size = new System.Drawing.Size(171, 24);
             this.SizeInfo.TabIndex = 1;
             this.SizeInfo.Text = "[SizeInfo]";
             this.SizeInfo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -66,27 +67,41 @@ namespace Yandere.Output.Components
             // DownloadBtn
             // 
             this.DownloadBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.DownloadBtn.Image = ((System.Drawing.Image)(resources.GetObject("DownloadBtn.Image")));
-            this.DownloadBtn.Location = new System.Drawing.Point(283, 310);
+            this.DownloadBtn.Location = new System.Drawing.Point(207, 310);
             this.DownloadBtn.Name = "DownloadBtn";
-            this.DownloadBtn.Size = new System.Drawing.Size(24, 24);
+            this.DownloadBtn.Size = new System.Drawing.Size(47, 24);
             this.DownloadBtn.TabIndex = 2;
+            this.DownloadBtn.Text = "JPG";
             this.DownloadBtn.UseVisualStyleBackColor = true;
+            this.DownloadBtn.Click += new System.EventHandler(this.DownloadBtn_Click);
             // 
             // FavBtn
             // 
             this.FavBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.FavBtn.Image = ((System.Drawing.Image)(resources.GetObject("FavBtn.Image")));
-            this.FavBtn.Location = new System.Drawing.Point(253, 310);
+            this.FavBtn.Location = new System.Drawing.Point(177, 310);
             this.FavBtn.Name = "FavBtn";
             this.FavBtn.Size = new System.Drawing.Size(24, 24);
             this.FavBtn.TabIndex = 3;
             this.FavBtn.UseVisualStyleBackColor = true;
+            this.FavBtn.Click += new System.EventHandler(this.FavBtn_Click);
+            // 
+            // PNGDownloadBtn
+            // 
+            this.PNGDownloadBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.PNGDownloadBtn.Location = new System.Drawing.Point(260, 310);
+            this.PNGDownloadBtn.Name = "PNGDownloadBtn";
+            this.PNGDownloadBtn.Size = new System.Drawing.Size(47, 24);
+            this.PNGDownloadBtn.TabIndex = 4;
+            this.PNGDownloadBtn.Text = "PNG";
+            this.PNGDownloadBtn.UseVisualStyleBackColor = true;
+            this.PNGDownloadBtn.Click += new System.EventHandler(this.PNGDownloadBtn_Click);
             // 
             // ImageBrick
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.PNGDownloadBtn);
             this.Controls.Add(this.FavBtn);
             this.Controls.Add(this.DownloadBtn);
             this.Controls.Add(this.SizeInfo);
@@ -105,5 +120,6 @@ namespace Yandere.Output.Components
         private System.Windows.Forms.PictureBox ImageContent;
         private System.Windows.Forms.Button DownloadBtn;
         private System.Windows.Forms.Button FavBtn;
+        private System.Windows.Forms.Button PNGDownloadBtn;
     }
 }
