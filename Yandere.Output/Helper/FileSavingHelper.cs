@@ -1,12 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using Yandere.Output.Models;
 
 namespace Yandere.Output.Helper
@@ -15,7 +10,24 @@ namespace Yandere.Output.Helper
     {
         public static ConcurrentDictionary<string, string> fileList = new ConcurrentDictionary<string, string>();
 
-        public static void AddDownloadTask(string url,ImageType type, string fileName)
+        public static void AddDownloadJPGTask(YandereImage imageInfo)
+        {
+            FileSavingHelper.AddDownloadTask(imageInfo.jpeg_url, ImageType.JPG, imageInfo.id.ToString() + ".jpg");
+        }
+
+        public static void AddDownloadPNGTask(YandereImage imageInfo)
+        {
+            if (string.IsNullOrEmpty(imageInfo.source))
+            {
+                FileSavingHelper.AddDownloadJPGTask(imageInfo);
+            }
+            else
+            {
+                FileSavingHelper.AddDownloadTask(imageInfo.source, ImageType.PNG, imageInfo.id.ToString() + ".png");
+            }
+        }
+
+        public static void AddDownloadTask(string url, ImageType type, string fileName)
         {
             if (ThreadPool.ThreadCount < 30)
             {
@@ -32,8 +44,8 @@ namespace Yandere.Output.Helper
                                 if (!File.Exists(path))
                                 {
                                     var file = await http.GetBytes(url);
-                                    if(file.Length>0)
-                                    await File.WriteAllBytesAsync(path, file);
+                                    if (file.Length > 0)
+                                        await File.WriteAllBytesAsync(path, file);
                                 }
                             }
                         }

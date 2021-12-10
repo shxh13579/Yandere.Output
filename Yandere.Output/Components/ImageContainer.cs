@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Yandere.Output.Models;
+using Yandere.Output.Services;
 
 namespace Yandere.Output.Components
 {
@@ -70,6 +71,15 @@ namespace Yandere.Output.Components
             foreach (var info in data)
             {
                 var brick = new ImageBrick(info) { Width = 150, Height = 150 };
+                brick.AddMarkEvent += async (id) =>
+               {
+                   using (ImageMarkService service = new ImageMarkService())
+                   {
+                       var suucess = await service.AddMarks(new[] { id });
+                       return suucess;
+                   }
+
+               };
                 MainContainer.Controls.Add(brick);
             }
 
