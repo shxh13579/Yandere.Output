@@ -44,7 +44,6 @@ namespace Yandere.Output
             this.MarkListBtn = new System.Windows.Forms.Button();
             this.MarkBtn = new System.Windows.Forms.Button();
             this.button13 = new System.Windows.Forms.Button();
-            this.Container = new Yandere.Output.Components.ImageContainer();
             this.AttributeList = new System.Windows.Forms.FlowLayoutPanel();
             this.IsNSFWCheck = new System.Windows.Forms.CheckBox();
             this.IsPNGCheck = new System.Windows.Forms.CheckBox();
@@ -122,6 +121,7 @@ namespace Yandere.Output
             this.SelectAllBtn.TabIndex = 9;
             this.SelectAllBtn.Text = "Select All";
             this.SelectAllBtn.UseVisualStyleBackColor = true;
+            this.SelectAllBtn.Click += new System.EventHandler(this.SelectAllBtn_Click);
             // 
             // DownloadShownBtn
             // 
@@ -133,6 +133,7 @@ namespace Yandere.Output
             this.DownloadShownBtn.TabIndex = 10;
             this.DownloadShownBtn.Text = "Download All";
             this.DownloadShownBtn.UseVisualStyleBackColor = true;
+            this.DownloadShownBtn.Click += new System.EventHandler(this.DownloadShownBtn_Click);
             // 
             // DownloadBtn
             // 
@@ -144,6 +145,7 @@ namespace Yandere.Output
             this.DownloadBtn.TabIndex = 12;
             this.DownloadBtn.Text = "Download";
             this.DownloadBtn.UseVisualStyleBackColor = true;
+            this.DownloadBtn.Click += new System.EventHandler(this.DownloadBtn_Click);
             // 
             // DownloadAllResultBtn
             // 
@@ -155,6 +157,7 @@ namespace Yandere.Output
             this.DownloadAllResultBtn.TabIndex = 13;
             this.DownloadAllResultBtn.Text = "Download All List";
             this.DownloadAllResultBtn.UseVisualStyleBackColor = true;
+            this.DownloadAllResultBtn.Click += new System.EventHandler(this.DownloadAllResultBtn_Click);
             // 
             // SkipPageBtn
             // 
@@ -190,6 +193,7 @@ namespace Yandere.Output
             this.MarkDownloadBtn.TabIndex = 16;
             this.MarkDownloadBtn.Text = "Download Marks";
             this.MarkDownloadBtn.UseVisualStyleBackColor = true;
+            this.MarkDownloadBtn.Click += new System.EventHandler(this.MarkDownloadBtn_Click);
             // 
             // MarkListBtn
             // 
@@ -201,6 +205,7 @@ namespace Yandere.Output
             this.MarkListBtn.TabIndex = 17;
             this.MarkListBtn.Text = "View Mark List";
             this.MarkListBtn.UseVisualStyleBackColor = true;
+            this.MarkListBtn.Click += new System.EventHandler(this.MarkListBtn_Click);
             // 
             // MarkBtn
             // 
@@ -225,17 +230,6 @@ namespace Yandere.Output
             this.button13.UseVisualStyleBackColor = true;
             this.button13.Visible = false;
             // 
-            // Container
-            // 
-            this.Container.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.Container.BackColor = System.Drawing.Color.White;
-            this.Container.Location = new System.Drawing.Point(12, 42);
-            this.Container.Name = "Container";
-            this.Container.Size = new System.Drawing.Size(859, 507);
-            this.Container.TabIndex = 20;
-            // 
             // AttributeList
             // 
             this.AttributeList.Controls.Add(this.IsNSFWCheck);
@@ -259,6 +253,7 @@ namespace Yandere.Output
             // 
             // IsPNGCheck
             // 
+            this.IsPNGCheck.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.IsPNGCheck.AutoSize = true;
             this.IsPNGCheck.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.IsPNGCheck.Location = new System.Drawing.Point(878, 211);
@@ -297,7 +292,6 @@ namespace Yandere.Output
             this.Controls.Add(this.PageNumber);
             this.Controls.Add(this.AttributeList);
             this.Controls.Add(this.IsPNGCheck);
-            this.Controls.Add(this.Container);
             this.Controls.Add(this.button13);
             this.Controls.Add(this.MarkBtn);
             this.Controls.Add(this.MarkListBtn);

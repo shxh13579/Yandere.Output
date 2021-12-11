@@ -1,18 +1,20 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading;
+using System.Windows.Forms;
 using Yandere.Output.Models;
+using Yandere.Output.Services;
 
 namespace Yandere.Output.Helper
 {
     public static class FileSavingHelper
     {
-        public static ConcurrentDictionary<string, string> fileList = new ConcurrentDictionary<string, string>();
 
         public static void AddDownloadJPGTask(YandereImage imageInfo)
         {
-            FileSavingHelper.AddDownloadTask(imageInfo.jpeg_url, ImageType.JPG, imageInfo.id.ToString() + ".jpg");
+            FileSavingHelper.AddDownloadTask(imageInfo, ImageType.JPG);
         }
 
         public static void AddDownloadPNGTask(YandereImage imageInfo)
@@ -23,34 +25,70 @@ namespace Yandere.Output.Helper
             }
             else
             {
-                FileSavingHelper.AddDownloadTask(imageInfo.source, ImageType.PNG, imageInfo.id.ToString() + ".png");
+                FileSavingHelper.AddDownloadTask(imageInfo, ImageType.PNG);
             }
         }
 
-        public static void AddDownloadTask(string url, ImageType type, string fileName)
+        public static void AddDownloadTask(YandereImage imageInfo, ImageType type)
         {
             if (ThreadPool.ThreadCount < 30)
             {
-                if (!fileList.ContainsKey(fileName))
+                var url = "";
+                string fileName = "";
+                switch (type)
                 {
-                    ThreadPool.QueueUserWorkItem(new WaitCallback(async (v) =>
-                    {
-                        using (HttpHelper http = new HttpHelper())
+                    case ImageType.PNG:
+                        if (string.IsNullOrEmpty(imageInfo.source))
                         {
-                            var path = ConfigurationHelper.Configuration.SavePath + "\\" + Enum.GetName(type) + "\\" + fileName;
-                            var success = fileList.TryAdd(fileName, path);
-                            if (success)
+                            url = imageInfo.jpeg_url;
+                            fileName = imageInfo.id.ToString() + ".jpg";
+                        }
+                        else
+                        {
+                            url = imageInfo.source;
+                            fileName = imageInfo.id.ToString() + ".png";
+                        }
+                        break;
+                    case ImageType.JPG:
+                    default:
+                        url = imageInfo.jpeg_url;
+                        fileName = imageInfo.id.ToString() + ".jpg";
+                        break;
+                }
+                ThreadPool.QueueUserWorkItem(new WaitCallback(async (v) =>
+                {
+                    using (HttpHelper http = new HttpHelper())
+                    {
+                        var path = ConfigurationHelper.Configuration.SavePath + "\\" + Enum.GetName(type) + "\\" + fileName;
+                        if (!File.Exists(path))
+                        {
+                            var file = await http.GetBytes(url);
+                            if (file.Length > 0)
                             {
-                                if (!File.Exists(path))
+                                await File.WriteAllBytesAsync(path, file);
+                                using (ImageSaveService _saveService = new ImageSaveService())
                                 {
-                                    var file = await http.GetBytes(url);
-                                    if (file.Length > 0)
-                                        await File.WriteAllBytesAsync(path, file);
+                                    if (type == ImageType.JPG)
+                                    {
+                                        var addSuccess = await _saveService.AddDownloadData(new DownloadInfo { id = imageInfo.id, IsJPGDownload = true }, type);
+                                        if (addSuccess)
+                                        {
+                                            imageInfo.IsJPGDownload = true;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        var addSuccess = await _saveService.AddDownloadData(new DownloadInfo { id = imageInfo.id, IsPNGDownload = true }, type);
+                                        if (addSuccess)
+                                        {
+                                            imageInfo.IsPNGDownload = true;
+                                        }
+                                    }
                                 }
                             }
                         }
-                    }));
-                }
+                    }
+                }));
             }
         }
     }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Yandere.Output.Models;
@@ -12,6 +13,8 @@ namespace Yandere.Output.Components
     {
         public ImageContainer()
         {
+            _imageSaveService = new ImageSaveService();
+            _imageMarkService = new ImageMarkService();
             InitializeComponent();
         }
 
@@ -19,20 +22,40 @@ namespace Yandere.Output.Components
 
         private int page = 1;
 
-        private List<YandereImage> _data { get; set; }
+        private ImageSaveService _imageSaveService;
+
+        private ImageMarkService _imageMarkService;
+
+        private List<YandereImage> _data { get; set; } = new List<YandereImage>();
 
         public List<YandereImage> Data { get { return _data; } }
+
+        public void RefreshImageStat()
+        {
+            foreach (Control control in MainContainer.Controls)
+            {
+                var image = control as ImageBrick;
+                if (image != null)
+                {
+                    image.RefreshStat();
+                }
+            }
+        }
 
         public List<YandereImage> SelectedImages
         {
             get
             {
                 var result = new List<YandereImage>();
-                foreach (ImageBrick image in MainContainer.Controls)
+                foreach (Control control in MainContainer.Controls)
                 {
-                    if (image.Selected)
+                    var image = control as ImageBrick;
+                    if (image!=null)
                     {
-                        result.Add(image.ImageInfo);
+                        if (image.Selected)
+                        {
+                            result.Add(image.ImageInfo);
+                        }
                     }
                 }
                 return result;
@@ -48,6 +71,9 @@ namespace Yandere.Output.Components
             if (_view == null || _view.IsDisposed)
             {
                 _view = new ImageViewForm(info);
+                _view.FormClosed += (e,v)=>{
+                    RefreshImageStat();
+                };
             }
             else
             {
@@ -59,8 +85,9 @@ namespace Yandere.Output.Components
 
         public Func<int, Task<int>> NextPageFunction = null;
 
-        public void LoadData(List<YandereImage> data)
+        public async Task LoadData(List<YandereImage> data)
         {
+            await _imageSaveService.GetList(data);
             _data.AddRange(data);
             if (MainContainer.Controls.Count > 0)
             {
@@ -71,15 +98,11 @@ namespace Yandere.Output.Components
             foreach (var info in data)
             {
                 var brick = new ImageBrick(info) { Width = 150, Height = 150 };
-                brick.AddMarkEvent += async (id) =>
-               {
-                   using (ImageMarkService service = new ImageMarkService())
-                   {
-                       var suucess = await service.AddMarks(new[] { id });
-                       return suucess;
-                   }
-
-               };
+                brick.MarkEvent += async (id,isMark) =>
+                {
+                    var suucess = await _imageMarkService.AddMarks(new[] { id });
+                    return suucess;
+                };
                 MainContainer.Controls.Add(brick);
             }
 
@@ -106,6 +129,26 @@ namespace Yandere.Output.Components
             MainContainer.Controls.Add(new ImageBrick(info) { Width = 150, Height = 150 });
         }
 
+        public async Task AddMark()
+        {
+            var data = SelectedImages.Select(x => x.id);
+            var success = await _imageMarkService.AddMarks(data);
+            if (success)
+            {
+                Data.ForEach(x =>
+                {
+                    if (data.Contains(x.id))
+                    {
+                        x.IsMark = true;
+                    }
+                });
+            }
+            else
+            {
+                MessageBox.Show("Failed to mark image.");
+            }
+
+        }
 
     }
 }

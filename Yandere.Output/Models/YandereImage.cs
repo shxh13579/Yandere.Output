@@ -48,6 +48,10 @@
         public int? last_commented_at { get; set; }
 
         public bool IsMark { get; set; } = false;
+
+        public bool IsPNGDownload { get; set; }
+
+        public bool IsJPGDownload { get; set; }
     }
 
     public enum ImageType
