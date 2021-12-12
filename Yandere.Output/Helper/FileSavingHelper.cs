@@ -12,24 +12,24 @@ namespace Yandere.Output.Helper
     public static class FileSavingHelper
     {
 
-        public static void AddDownloadJPGTask(YandereImage imageInfo)
+        public static void AddDownloadJPGTask(YandereImage imageInfo, Action<YandereImage> act = null)
         {
-            FileSavingHelper.AddDownloadTask(imageInfo, ImageType.JPG);
+            FileSavingHelper.AddDownloadTask(imageInfo, ImageType.JPG,act);
         }
 
-        public static void AddDownloadPNGTask(YandereImage imageInfo)
+        public static void AddDownloadPNGTask(YandereImage imageInfo, Action<YandereImage> act = null)
         {
             if (string.IsNullOrEmpty(imageInfo.source))
             {
-                FileSavingHelper.AddDownloadJPGTask(imageInfo);
+                FileSavingHelper.AddDownloadJPGTask(imageInfo,act);
             }
             else
             {
-                FileSavingHelper.AddDownloadTask(imageInfo, ImageType.PNG);
+                FileSavingHelper.AddDownloadTask(imageInfo, ImageType.PNG,act);
             }
         }
 
-        public static void AddDownloadTask(YandereImage imageInfo, ImageType type)
+        public static void AddDownloadTask(YandereImage imageInfo, ImageType type,Action<YandereImage> act = null)
         {
             if (ThreadPool.ThreadCount < 30)
             {
@@ -83,6 +83,10 @@ namespace Yandere.Output.Helper
                                         {
                                             imageInfo.IsPNGDownload = true;
                                         }
+                                    }
+                                    if (act != null)
+                                    {
+                                        act(imageInfo);
                                     }
                                 }
                             }

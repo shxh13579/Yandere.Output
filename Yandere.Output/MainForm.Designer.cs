@@ -143,7 +143,7 @@ namespace Yandere.Output
             this.DownloadBtn.Name = "DownloadBtn";
             this.DownloadBtn.Size = new System.Drawing.Size(123, 28);
             this.DownloadBtn.TabIndex = 12;
-            this.DownloadBtn.Text = "Download";
+            this.DownloadBtn.Text = "Download Select";
             this.DownloadBtn.UseVisualStyleBackColor = true;
             this.DownloadBtn.Click += new System.EventHandler(this.DownloadBtn_Click);
             // 

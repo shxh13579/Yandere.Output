@@ -157,12 +157,12 @@ namespace Yandere.Output
 
         private void SelectAllBtn_Click(object sender, EventArgs e)
         {
-
+            Container.SelectAllImages(true);
         }
 
         private void DownloadBtn_Click(object sender, EventArgs e)
         {
-
+            Container.DownloadSelected();
             Container.RefreshImageStat();
         }
 

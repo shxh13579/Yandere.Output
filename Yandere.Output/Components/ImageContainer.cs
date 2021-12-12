@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Yandere.Output.Helper;
 using Yandere.Output.Models;
 using Yandere.Output.Services;
 
@@ -97,7 +98,7 @@ namespace Yandere.Output.Components
             }
             foreach (var info in data)
             {
-                var brick = new ImageBrick(info) { Width = 150, Height = 150 };
+                var brick = new ImageBrick(info) {Name=info.id.ToString(), Width = 150, Height = 150 };
                 brick.MarkEvent += async (id,isMark) =>
                 {
                     var suucess = await _imageMarkService.AddMarks(new[] { id });
@@ -123,6 +124,21 @@ namespace Yandere.Output.Components
             }
         }
 
+        public void DownloadSelected()
+        {
+            var data = SelectedImages;
+            foreach(YandereImage image in data)
+            {
+                FileSavingHelper.AddDownloadJPGTask(image,(info)=> {
+                    var brick = MainContainer.Controls[info.id.ToString()] as ImageBrick;
+                    if (brick != null)
+                    {
+                        brick.RefreshStat();
+                    }
+                });
+            }
+            
+        }
 
         public void InsertImage(YandereImage info)
         {
