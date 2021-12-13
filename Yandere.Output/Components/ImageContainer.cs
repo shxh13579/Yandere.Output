@@ -14,8 +14,6 @@ namespace Yandere.Output.Components
     {
         public ImageContainer()
         {
-            _imageSaveService = new ImageSaveService();
-            _imageMarkService = new ImageMarkService();
             InitializeComponent();
         }
 
@@ -67,6 +65,12 @@ namespace Yandere.Output.Components
         {
         }
 
+        public void InitDataContext()
+        {
+            _imageSaveService = new ImageSaveService();
+            _imageMarkService = new ImageMarkService();
+        }
+
         public void AddImageView(YandereImage info)
         {
             if (_view == null || _view.IsDisposed)
@@ -86,6 +90,15 @@ namespace Yandere.Output.Components
 
         public Func<int, Task<int>> NextPageFunction = null;
 
+        public void ClearContainer()
+        {
+            foreach(Control control in MainContainer.Controls)
+            {
+                control.Dispose();
+            }
+            MainContainer.Controls.Clear();
+        }
+
         public async Task LoadData(List<YandereImage> data)
         {
             await _imageSaveService.GetList(data);
@@ -98,7 +111,7 @@ namespace Yandere.Output.Components
             }
             foreach (var info in data)
             {
-                var brick = new ImageBrick(info) {Name=info.id.ToString(), Width = 150, Height = 150 };
+                var brick = new ImageBrick(info) {Name=info.id.ToString(), Width = 100, Height = 100 };
                 brick.MarkEvent += async (id,isMark) =>
                 {
                     var suucess = await _imageMarkService.AddMarks(new[] { id });
@@ -124,12 +137,23 @@ namespace Yandere.Output.Components
             }
         }
 
-        public void DownloadSelected()
+        public void DownloadSelected(ImageType type,bool overwrite = false)
         {
             var data = SelectedImages;
             foreach(YandereImage image in data)
             {
-                FileSavingHelper.AddDownloadJPGTask(image,(info)=> {
+                if (!overwrite)
+                {
+                    if (image.IsJPGDownload && type == ImageType.JPG)
+                    {
+                        continue;
+                    }
+                    if (image.IsPNGDownload && type == ImageType.PNG)
+                    {
+                        continue;
+                    }
+                }
+                FileSavingHelper.AddDownloadTask(image,type,(info)=> {
                     var brick = MainContainer.Controls[info.id.ToString()] as ImageBrick;
                     if (brick != null)
                     {
@@ -140,6 +164,33 @@ namespace Yandere.Output.Components
             
         }
 
+        public void DownloadMarked(ImageType type, bool overwrite = false)
+        {
+            var data = Data.Where(x => x.IsMark == true);
+            foreach (YandereImage image in data)
+            {
+                if (!overwrite)
+                {
+                    if (image.IsJPGDownload && type == ImageType.JPG)
+                    {
+                        continue;
+                    }
+                    if (image.IsPNGDownload && type == ImageType.PNG)
+                    {
+                        continue;
+                    }
+                }
+                FileSavingHelper.AddDownloadTask(image, type, (info) => {
+                    var brick = MainContainer.Controls[info.id.ToString()] as ImageBrick;
+                    if (brick != null)
+                    {
+                        brick.RefreshStat();
+                    }
+                });
+            }
+
+        }
+
         public void InsertImage(YandereImage info)
         {
             MainContainer.Controls.Add(new ImageBrick(info) { Width = 150, Height = 150 });
@@ -147,7 +198,7 @@ namespace Yandere.Output.Components
 
         public async Task AddMark()
         {
-            var data = SelectedImages.Select(x => x.id);
+            var data = SelectedImages.Where(x=>x.IsMark == false).Select(x => x.id);
             var success = await _imageMarkService.AddMarks(data);
             if (success)
             {
@@ -163,7 +214,7 @@ namespace Yandere.Output.Components
             {
                 MessageBox.Show("Failed to mark image.");
             }
-
+            RefreshImageStat();
         }
 
     }

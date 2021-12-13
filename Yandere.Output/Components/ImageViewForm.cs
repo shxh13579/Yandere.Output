@@ -51,12 +51,12 @@ namespace Yandere.Output.Components
 
         private void saveJpgBtn_Click(object sender, EventArgs e)
         {
-            FileSavingHelper.AddDownloadJPGTask(_imageInfo);
+            FileSavingHelper.AddDownloadTask(_imageInfo,ImageType.JPG);
         }
 
         private void savePngBtn_Click(object sender, EventArgs e)
         {
-            FileSavingHelper.AddDownloadPNGTask(_imageInfo);
+            FileSavingHelper.AddDownloadTask(_imageInfo,ImageType.PNG);
 
         }
     }

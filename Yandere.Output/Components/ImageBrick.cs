@@ -30,10 +30,12 @@ namespace Yandere.Output.Components
             {
                 if (_imageInfo.IsMark)
                 {
+                    PNGDownloadBtn.BackColor = Color.LightGreen;
                     FavBtn.Image = Resouces.Favorited;
                 }
                 else
                 {
+                    PNGDownloadBtn.BackColor = Color.LightGray;
                     FavBtn.Image = Resouces.favorite;
                 }
             }));
@@ -187,12 +189,16 @@ namespace Yandere.Output.Components
 
         private void DownloadBtn_Click(object sender, EventArgs e)
         {
-            FileSavingHelper.AddDownloadJPGTask(_imageInfo);
+            FileSavingHelper.AddDownloadTask(_imageInfo,ImageType.JPG,(info)=> {
+                RefreshStat();
+            });
         }
 
         private void PNGDownloadBtn_Click(object sender, EventArgs e)
         {
-            FileSavingHelper.AddDownloadPNGTask(_imageInfo);
+            FileSavingHelper.AddDownloadTask(_imageInfo,ImageType.PNG, (info) => {
+                RefreshStat();
+            });
         }
 
         private async void FavBtn_Click(object sender, EventArgs e)
@@ -205,10 +211,7 @@ namespace Yandere.Output.Components
                     if (success)
                     {
                         _imageInfo.IsMark = true;
-                        FavBtn.Invoke(new Action(() =>
-                        {
-                            FavBtn.Image = Resouces.Favorited;
-                        }));
+                        RefreshStat();
                     }
                 }
                 else
@@ -217,10 +220,7 @@ namespace Yandere.Output.Components
                     if (success)
                     {
                         _imageInfo.IsMark = false;
-                        FavBtn.Invoke(new Action(() =>
-                        {
-                            FavBtn.Image = Resouces.favorite;
-                        }));
+                        RefreshStat();
                     }
                 }
             }

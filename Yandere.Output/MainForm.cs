@@ -55,6 +55,7 @@ namespace Yandere.Output
                 //    ErrorMsg.Text += "1";
                 //}));
             };
+            Container.InitDataContext();
         }
 
         private async void button1_Click(object sender, EventArgs e)
@@ -65,7 +66,8 @@ namespace Yandere.Output
 
         private async Task<bool> LoadImageData(int page)
         {
-            var pageSize = 100;
+            Container.ClearContainer();
+            var pageSize = 20;
             var data = await _service.GetList(page, SelectTags.Text, pageSize);
             if (Container.Data!=null && Container.Data.Count == pageSize && Container.Data.Select(x => x.id).ToArray() == data.Select(x => x.id).ToArray())
             {
@@ -85,7 +87,7 @@ namespace Yandere.Output
             Container.NextPageFunction = async (nextPage) =>
             {
                 nextPage += 1;
-                data = await _service.GetList(nextPage, "elf", 100);
+                data = await _service.GetList(nextPage, "elf", pageSize);
                 await Container.LoadData(data);
                 return nextPage;
             };
@@ -111,7 +113,6 @@ namespace Yandere.Output
         private async void MarkBtn_Click(object sender, EventArgs e)
         {
             await Container.AddMark();
-            Container.RefreshImageStat();
         }
 
         private void PageNumber_TextChanged(object sender, EventArgs e)
@@ -162,14 +163,26 @@ namespace Yandere.Output
 
         private void DownloadBtn_Click(object sender, EventArgs e)
         {
-            Container.DownloadSelected();
-            Container.RefreshImageStat();
+            if (IsPNGCheck.Checked)
+            {
+                Container.DownloadSelected(ImageType.PNG);
+            }
+            else
+            {
+                Container.DownloadSelected(ImageType.JPG);
+            }
         }
 
         private void MarkDownloadBtn_Click(object sender, EventArgs e)
         {
-
-            Container.RefreshImageStat();
+            if (IsPNGCheck.Checked)
+            {
+                Container.DownloadMarked(ImageType.PNG);
+            }
+            else
+            {
+                Container.DownloadMarked(ImageType.JPG);
+            }
         }
 
         private void DownloadShownBtn_Click(object sender, EventArgs e)

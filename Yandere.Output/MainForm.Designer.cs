@@ -49,6 +49,7 @@ namespace Yandere.Output
             this.IsPNGCheck = new System.Windows.Forms.CheckBox();
             this.PageNumber = new System.Windows.Forms.TextBox();
             this.InfoMessage = new System.Windows.Forms.Label();
+            this.Container = new Yandere.Output.Components.ImageContainer();
             this.AttributeList.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -283,11 +284,22 @@ namespace Yandere.Output
             this.InfoMessage.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.InfoMessage.UseCompatibleTextRendering = true;
             // 
+            // Container
+            // 
+            this.Container.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Container.Location = new System.Drawing.Point(12, 42);
+            this.Container.Name = "Container";
+            this.Container.Size = new System.Drawing.Size(860, 507);
+            this.Container.TabIndex = 24;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1008, 561);
+            this.Controls.Add(this.Container);
             this.Controls.Add(this.InfoMessage);
             this.Controls.Add(this.PageNumber);
             this.Controls.Add(this.AttributeList);
@@ -335,14 +347,12 @@ namespace Yandere.Output
         private System.Windows.Forms.Button MarkListBtn;
         private System.Windows.Forms.Button MarkBtn;
         private System.Windows.Forms.Button button13;
-        private Components.ImageContainer ImageContainer;
-        private Components.ImageContainer MainContainer;
-        private Components.ImageContainer Container;
         private System.Windows.Forms.FlowLayoutPanel AttributeList;
         private System.Windows.Forms.CheckBox IsNSFWCheck;
         private System.Windows.Forms.CheckBox IsPNGCheck;
         private System.Windows.Forms.TextBox PageNumber;
         private System.Windows.Forms.Label InfoMessage;
+        private Components.ImageContainer Container;
     }
 }
 

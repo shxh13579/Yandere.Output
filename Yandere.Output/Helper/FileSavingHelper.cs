@@ -12,22 +12,6 @@ namespace Yandere.Output.Helper
     public static class FileSavingHelper
     {
 
-        public static void AddDownloadJPGTask(YandereImage imageInfo, Action<YandereImage> act = null)
-        {
-            FileSavingHelper.AddDownloadTask(imageInfo, ImageType.JPG,act);
-        }
-
-        public static void AddDownloadPNGTask(YandereImage imageInfo, Action<YandereImage> act = null)
-        {
-            if (string.IsNullOrEmpty(imageInfo.source))
-            {
-                FileSavingHelper.AddDownloadJPGTask(imageInfo,act);
-            }
-            else
-            {
-                FileSavingHelper.AddDownloadTask(imageInfo, ImageType.PNG,act);
-            }
-        }
 
         public static void AddDownloadTask(YandereImage imageInfo, ImageType type,Action<YandereImage> act = null)
         {
