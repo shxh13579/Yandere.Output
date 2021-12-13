@@ -22,7 +22,52 @@ namespace Yandere.Output.Components
 
         public YandereImage ImageInfo { get { return _imageInfo; } }
 
-        public Func<int, Task<bool>> AddMarkEvent = null;
+        public Func<int,bool ,Task<bool>> MarkEvent = null;
+
+        public void RefreshStat()
+        {
+            FavBtn.Invoke(new Action(() =>
+            {
+                if (_imageInfo.IsMark)
+                {
+                    PNGDownloadBtn.BackColor = Color.LightGreen;
+                    FavBtn.Image = Resouces.Favorited;
+                }
+                else
+                {
+                    PNGDownloadBtn.BackColor = Color.LightGray;
+                    FavBtn.Image = Resouces.favorite;
+                }
+            }));
+
+            PNGDownloadBtn.Invoke(new Action(() =>
+            {
+                if (_imageInfo.IsPNGDownload)
+                {
+                    PNGDownloadBtn.BackColor = Color.LightGreen;
+                }
+                else
+                {
+                    PNGDownloadBtn.BackColor = Color.LightGray;
+                }
+            }));
+
+
+            DownloadBtn.Invoke(new Action(() =>
+            {
+                if (_imageInfo.IsJPGDownload)
+                {
+                    DownloadBtn.BackColor = Color.LightGreen;
+                }
+                else
+                {
+                    DownloadBtn.BackColor = Color.LightGray;
+                }
+            }));
+
+
+        }
+    
 
         public ImageBrick(string url)
         {
@@ -50,6 +95,32 @@ namespace Yandere.Output.Components
             {
                 FavBtn.Left += 53;
                 DownloadBtn.Left += 53;
+            }
+            if (_imageInfo.IsMark)
+            {
+                FavBtn.Image = Resouces.Favorited;
+            }
+            else
+            {
+                FavBtn.Image = Resouces.favorite;
+            }
+
+            if (_imageInfo.IsPNGDownload)
+            {
+                PNGDownloadBtn.BackColor = Color.LightGreen;
+            }
+            else
+            {
+                PNGDownloadBtn.BackColor = Color.LightGray;
+            }
+
+            if (_imageInfo.IsJPGDownload)
+            {
+                DownloadBtn.BackColor = Color.LightGreen;
+            }
+            else
+            {
+                DownloadBtn.BackColor = Color.LightGray;
             }
         }
 
@@ -118,25 +189,39 @@ namespace Yandere.Output.Components
 
         private void DownloadBtn_Click(object sender, EventArgs e)
         {
-            FileSavingHelper.AddDownloadJPGTask(_imageInfo);
+            FileSavingHelper.AddDownloadTask(_imageInfo,ImageType.JPG,(info)=> {
+                RefreshStat();
+            });
         }
 
         private void PNGDownloadBtn_Click(object sender, EventArgs e)
         {
-            FileSavingHelper.AddDownloadPNGTask(_imageInfo);
+            FileSavingHelper.AddDownloadTask(_imageInfo,ImageType.PNG, (info) => {
+                RefreshStat();
+            });
         }
 
         private async void FavBtn_Click(object sender, EventArgs e)
         {
-            if (AddMarkEvent != null)
+            if (MarkEvent != null)
             {
-                var success = await AddMarkEvent(_imageInfo.id);
-                if (success)
+                if (!_imageInfo.IsMark)
                 {
-                    FavBtn.Invoke(new Action(() =>
+                    var success = await MarkEvent(_imageInfo.id,true);
+                    if (success)
                     {
-                        FavBtn.Image = Resouces.Favorited;
-                    }));
+                        _imageInfo.IsMark = true;
+                        RefreshStat();
+                    }
+                }
+                else
+                {
+                    var success = await MarkEvent(_imageInfo.id, false);
+                    if (success)
+                    {
+                        _imageInfo.IsMark = false;
+                        RefreshStat();
+                    }
                 }
             }
         }

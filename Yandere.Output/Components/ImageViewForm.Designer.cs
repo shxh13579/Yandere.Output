@@ -87,6 +87,7 @@ namespace Yandere.Output.Components
             // 
             // SizeInfo
             // 
+            this.SizeInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.SizeInfo.AutoSize = true;
             this.SizeInfo.Location = new System.Drawing.Point(182, 425);
             this.SizeInfo.Name = "SizeInfo";

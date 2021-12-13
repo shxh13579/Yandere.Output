@@ -1,4 +1,5 @@
 ﻿using CsvHelper;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -12,9 +13,14 @@ namespace Yandere.Output.Services
 {
     public class ImageMarkService : IDisposable
     {
+        private ImageDBContext _db;
+
         public ImageMarkService()
         {
+            _db  = new ImageDBContext();
         }
+
+
 
         public async Task<bool> AddMarks(IEnumerable<int> idList)
         {
@@ -23,71 +29,30 @@ namespace Yandere.Output.Services
                 return true;
             }
 
-            var existList = new List<int>();
-            var exist = File.Exists("UserData.csv");
-            if (exist)
-            {
-                var existFile = new StreamReader("UserData.csv", true);
-                var existRead = new CsvReader(existFile, CultureInfo.InvariantCulture);
-                try
-                {
-                    existList = existRead.GetRecords<MarkInfo>().Select(x => x.id).ToList();
-                    existRead.Dispose();
-                    existFile.Close();
-                    existFile.Dispose();
-                }
-                catch (Exception e)
-                {
-                    existRead.Dispose();
-                    existFile.Close();
-                    existFile.Dispose();
-                    throw e;
-                }
-            }
-            var alert = MessageBox.Show("Unknown error occurred from your manifest,\r\n could you want to delete old file?", "Error", MessageBoxButtons.YesNo);
-            if (alert == DialogResult.No)
-            {
-                return false;
-            }
-
-            var addList = new List<MarkInfo>();
-            var text = new StreamWriter("UserData.csv", true);
-            var helper = new CsvWriter(text, CultureInfo.InvariantCulture);
-            try
-            {
-                if (!exist)
-                {
-                    helper.WriteHeader(typeof(MarkInfo));
-                    helper.NextRecord();
-                }
-                foreach (var id in idList)
-                {
-                    if (!existList.Contains(id))
-                    {
-                        helper.WriteRecord(new MarkInfo() { id = id, Saved = false });
-                        helper.NextRecord();
-                    }
-                }
-
-                text.Close();
-                text.Dispose();
-                await helper.FlushAsync();
-                await helper.DisposeAsync();
-            }
-            catch (Exception e)
-            {
-                text.Close();
-                text.Dispose();
-                await helper.FlushAsync();
-                await helper.DisposeAsync();
-                throw e;
-            }
+            var existList = await _db .MarkInfo.Select(x => x.id).ToListAsync();
+            var addList = idList.Where(x => !existList.Contains(x)).Select(x => new MarkInfo() { id = x });
+            await _db .MarkInfo.AddRangeAsync(addList);
             return true;
+
         }
 
-        public void Dispose()
+        public async Task<bool> RemoveMarks(IEnumerable<int> idList)
         {
+            if (!idList.Any())
+            {
+                return true;
+            }
 
+            var existList = await _db .MarkInfo.Select(x => x.id).ToListAsync();
+            var addList = idList.Where(x => existList.Contains(x)).Select(x => new MarkInfo() { id = x });
+            _db .MarkInfo.RemoveRange(addList);
+            return true;
+
+        }
+
+        public async void Dispose()
+        {
+            await _db.DisposeAsync();
         }
     }
 }

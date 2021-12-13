@@ -3,5 +3,6 @@
     "GetList": "https://yande.re/post.json",
     "GetTags": "https://yande.re/tag.json"
   },
-  "SavePath": "PicRepository"
+  "SavePath": "PicRepository",
+  "Connection": "Data Source=UserDatabase.db"
 }

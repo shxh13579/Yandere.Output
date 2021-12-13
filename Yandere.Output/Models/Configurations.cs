@@ -29,6 +29,8 @@ namespace Yandere.Output.Models
                 }
             }
         }
+
+        public string Connection { get; set; }
     }
     public class API
     {
