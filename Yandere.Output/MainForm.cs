@@ -60,6 +60,7 @@ namespace Yandere.Output
                 //    ErrorMsg.Text += "1";
                 //}));
             };
+            Container.InitDataContext();
         }
 
         private async void button1_Click(object sender, EventArgs e)
@@ -70,9 +71,10 @@ namespace Yandere.Output
 
         private async Task<bool> LoadImageData(int page)
         {
-            var pageSize = 100;
+            Container.ClearContainer();
+            var pageSize = 20;
             var data = await _service.GetList(page, SelectTags.Text, pageSize);
-            if (Container.Data.Count == pageSize && Container.Data.Select(x => x.id).ToArray() == data.Select(x => x.id).ToArray())
+            if (Container.Data!=null && Container.Data.Count == pageSize && Container.Data.Select(x => x.id).ToArray() == data.Select(x => x.id).ToArray())
             {
                 return false;
             }
@@ -82,16 +84,16 @@ namespace Yandere.Output
                 MessageBox.Show("error!");
                 return false;
             }
-            if (_isNSFW)
+            if (!_isNSFW)
             {
-                data = data.Where(x => x.rating == "e").ToList();
+                data = data.Where(x => x.rating == "s").ToList();
             }
-            Container.LoadData(data);
+            await Container.LoadData(data);
             Container.NextPageFunction = async (nextPage) =>
             {
                 nextPage += 1;
-                data = await _service.GetList(nextPage, "elf", 100);
-                Container.LoadData(data);
+                data = await _service.GetList(nextPage, "elf", pageSize);
+                await Container.LoadData(data);
                 return nextPage;
             };
             return true;
@@ -115,16 +117,7 @@ namespace Yandere.Output
 
         private async void MarkBtn_Click(object sender, EventArgs e)
         {
-            var data = Container.SelectedImages;
-            var success = await _imageMarkService.AddMarks(data.Select(x => x.id));
-            if (success)
-            {
-                _markList.AddRange(data);
-            }
-            else
-            {
-                MessageBox.Show("Failed to mark image.");
-            }
+            await Container.AddMark();
         }
 
         private void PageNumber_TextChanged(object sender, EventArgs e)
@@ -161,6 +154,52 @@ namespace Yandere.Output
         private void IsNSFWCheck_CheckedChanged(object sender, EventArgs e)
         {
             _isNSFW = IsNSFWCheck.Checked;
+        }
+
+        private void MarkListBtn_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void SelectAllBtn_Click(object sender, EventArgs e)
+        {
+            Container.SelectAllImages(true);
+        }
+
+        private void DownloadBtn_Click(object sender, EventArgs e)
+        {
+            if (IsPNGCheck.Checked)
+            {
+                Container.DownloadSelected(ImageType.PNG);
+            }
+            else
+            {
+                Container.DownloadSelected(ImageType.JPG);
+            }
+        }
+
+        private void MarkDownloadBtn_Click(object sender, EventArgs e)
+        {
+            if (IsPNGCheck.Checked)
+            {
+                Container.DownloadMarked(ImageType.PNG);
+            }
+            else
+            {
+                Container.DownloadMarked(ImageType.JPG);
+            }
+        }
+
+        private void DownloadShownBtn_Click(object sender, EventArgs e)
+        {
+
+            Container.RefreshImageStat();
+        }
+
+        private void DownloadAllResultBtn_Click(object sender, EventArgs e)
+        {
+
+            Container.RefreshImageStat();
         }
     }
 }
