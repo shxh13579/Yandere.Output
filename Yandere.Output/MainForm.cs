@@ -10,7 +10,7 @@ namespace Yandere.Output
 {
     public partial class MainForm : Form
     {
-        private ImageQueryService _service;
+        private ImageApiService _service;
 
         private System.Timers.Timer _tagSearchTimer = new System.Timers.Timer(2000);
 
@@ -38,7 +38,7 @@ namespace Yandere.Output
 
         public MainForm()
         {
-            _service = new ImageQueryService();
+            _service = new ImageApiService();
             _imageMarkService = new ImageMarkService();
             InitializeComponent();
 
@@ -50,6 +50,11 @@ namespace Yandere.Output
             _tagSearchTimer.AutoReset = false;
             _tagSearchTimer.Elapsed += (e, v) =>
             {
+                SelectTags.Invoke(new Action(() =>
+                {
+                    var text = SelectTags.Text;
+                    //todo
+                }));
                 //ErrorMsg.Invoke(new Action(() =>
                 //{
                 //    ErrorMsg.Text += "1";

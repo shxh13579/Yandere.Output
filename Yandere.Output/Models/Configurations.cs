@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Yandere.Output.Models
 {
@@ -20,9 +16,9 @@ namespace Yandere.Output.Models
             set
             {
                 _savePath = value;
-                foreach(var name in Enum.GetNames(typeof(ImageType)))
+                foreach (var name in Enum.GetNames(typeof(ImageType)))
                 {
-                    if (!Directory.Exists(_savePath+"\\"+name))
+                    if (!Directory.Exists(_savePath + "\\" + name))
                     {
                         Directory.CreateDirectory(_savePath + "\\" + name);
                     }
@@ -34,6 +30,7 @@ namespace Yandere.Output.Models
     {
         public string GetList { get; set; }
 
+        public string GetTags { get; set; }
     }
 
 }

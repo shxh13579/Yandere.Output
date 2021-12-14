@@ -61,7 +61,6 @@ namespace Yandere.Output.Components
 
         public void LoadData(List<YandereImage> data)
         {
-            _data.AddRange(data);
             if (MainContainer.Controls.Count > 0)
             {
                 var btn = MainContainer.Controls[MainContainer.Controls.Count - 1];
@@ -70,6 +69,11 @@ namespace Yandere.Output.Components
             }
             foreach (var info in data)
             {
+                if (_data.Exists(x => x.id == info.id))
+                {
+                    continue;
+                }
+                _data.Add(info);
                 var brick = new ImageBrick(info) { Width = 150, Height = 150 };
                 brick.AddMarkEvent += async (id) =>
                {
