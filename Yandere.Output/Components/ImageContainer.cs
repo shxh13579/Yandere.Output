@@ -101,8 +101,6 @@ namespace Yandere.Output.Components
 
         public async Task LoadData(List<YandereImage> data)
         {
-            await _imageSaveService.GetList(data);
-            _data.AddRange(data);
             if (MainContainer.Controls.Count > 0)
             {
                 var btn = MainContainer.Controls[MainContainer.Controls.Count - 1];
@@ -111,12 +109,21 @@ namespace Yandere.Output.Components
             }
             foreach (var info in data)
             {
-                var brick = new ImageBrick(info) {Name=info.id.ToString(), Width = 100, Height = 100 };
-                brick.MarkEvent += async (id,isMark) =>
+                if (_data.Exists(x => x.id == info.id))
                 {
-                    var suucess = await _imageMarkService.AddMarks(new[] { id });
-                    return suucess;
-                };
+                    continue;
+                }
+                _data.Add(info);
+                var brick = new ImageBrick(info) { Width = 150, Height = 150 };
+                brick.AddMarkEvent += async (id) =>
+               {
+                   using (ImageMarkService service = new ImageMarkService())
+                   {
+                       var suucess = await service.AddMarks(new[] { id });
+                       return suucess;
+                   }
+
+               };
                 MainContainer.Controls.Add(brick);
             }
 
