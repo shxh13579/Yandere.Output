@@ -18,6 +18,8 @@ namespace Yandere.Output
 
         private int _currentPage = 1;
 
+        private bool _allowAutoComplete = false;
+
         private bool _isNSFW = true;
 
         private ImageMarkService _imageMarkService;
@@ -48,13 +50,28 @@ namespace Yandere.Output
         {
             _tagSearchTimer.Enabled = true;
             _tagSearchTimer.AutoReset = false;
+            SelectTags.GotFocus += (e, v) =>
+            {
+                _allowAutoComplete = true;
+            };
+            SelectTags.LostFocus += (e, v) =>
+            {
+                _allowAutoComplete = false;
+            }
             _tagSearchTimer.Elapsed += (e, v) =>
             {
-                SelectTags.Invoke(new Action(() =>
-                {
-                    var text = SelectTags.Text;
-                    //todo
-                }));
+                SelectTags.Invoke(new Action(async () =>
+               {
+                   var text = SelectTags.Text;
+                   if (string.IsNullOrEmpty(text))
+                   {
+                       return;
+                   }
+                   var tags = (await _service.GetTagList(text)).Select(x => x.name).ToList();
+                   SelectTags.DataSource = tags;
+                   SelectTags.DroppedDown = true;
+                   //todo
+               }));
                 //ErrorMsg.Invoke(new Action(() =>
                 //{
                 //    ErrorMsg.Text += "1";
@@ -74,7 +91,7 @@ namespace Yandere.Output
             Container.ClearContainer();
             var pageSize = 20;
             var data = await _service.GetList(page, SelectTags.Text, pageSize);
-            if (Container.Data!=null && Container.Data.Count == pageSize && Container.Data.Select(x => x.id).ToArray() == data.Select(x => x.id).ToArray())
+            if (Container.Data != null && Container.Data.Count == pageSize && Container.Data.Select(x => x.id).ToArray() == data.Select(x => x.id).ToArray())
             {
                 return false;
             }
@@ -111,8 +128,11 @@ namespace Yandere.Output
 
         private void SelectTags_TextChanged(object sender, EventArgs e)
         {
-            _tagSearchTimer.Stop();
-            _tagSearchTimer.Start();
+            if (_allowAutoComplete)
+            {
+                _tagSearchTimer.Stop();
+                _tagSearchTimer.Start();
+            }
         }
 
         private async void MarkBtn_Click(object sender, EventArgs e)
