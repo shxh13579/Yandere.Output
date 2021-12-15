@@ -22,4 +22,4 @@ jobs:
     - name: Build
       run: dotnet build --no-restore -c Release -o \Yandere.Output
     - name: zips
-      run: zip -q -r yandere.zip \Yandere.output
+      run: 7z a yandere.zip \Yandere.output
