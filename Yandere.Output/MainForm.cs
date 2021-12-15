@@ -57,7 +57,7 @@ namespace Yandere.Output
             SelectTags.LostFocus += (e, v) =>
             {
                 _allowAutoComplete = false;
-            }
+            };
             _tagSearchTimer.Elapsed += (e, v) =>
             {
                 SelectTags.Invoke(new Action(async () =>
