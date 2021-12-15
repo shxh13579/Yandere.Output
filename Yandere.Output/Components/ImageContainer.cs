@@ -49,7 +49,7 @@ namespace Yandere.Output.Components
                 foreach (Control control in MainContainer.Controls)
                 {
                     var image = control as ImageBrick;
-                    if (image!=null)
+                    if (image != null)
                     {
                         if (image.Selected)
                         {
@@ -76,7 +76,8 @@ namespace Yandere.Output.Components
             if (_view == null || _view.IsDisposed)
             {
                 _view = new ImageViewForm(info);
-                _view.FormClosed += (e,v)=>{
+                _view.FormClosed += (e, v) =>
+                {
                     RefreshImageStat();
                 };
             }
@@ -92,7 +93,7 @@ namespace Yandere.Output.Components
 
         public void ClearContainer()
         {
-            foreach(Control control in MainContainer.Controls)
+            foreach (Control control in MainContainer.Controls)
             {
                 control.Dispose();
             }
@@ -115,7 +116,7 @@ namespace Yandere.Output.Components
                 }
                 _data.Add(info);
                 var brick = new ImageBrick(info) { Width = 150, Height = 150 };
-                brick.AddMarkEvent += async (id) =>
+                brick.MarkEvent += async (id, check) =>
                {
                    using (ImageMarkService service = new ImageMarkService())
                    {
@@ -144,10 +145,10 @@ namespace Yandere.Output.Components
             }
         }
 
-        public void DownloadSelected(ImageType type,bool overwrite = false)
+        public void DownloadSelected(ImageType type, bool overwrite = false)
         {
             var data = SelectedImages;
-            foreach(YandereImage image in data)
+            foreach (YandereImage image in data)
             {
                 if (!overwrite)
                 {
@@ -160,7 +161,8 @@ namespace Yandere.Output.Components
                         continue;
                     }
                 }
-                FileSavingHelper.AddDownloadTask(image,type,(info)=> {
+                FileSavingHelper.AddDownloadTask(image, type, (info) =>
+                {
                     var brick = MainContainer.Controls[info.id.ToString()] as ImageBrick;
                     if (brick != null)
                     {
@@ -168,7 +170,7 @@ namespace Yandere.Output.Components
                     }
                 });
             }
-            
+
         }
 
         public void DownloadMarked(ImageType type, bool overwrite = false)
@@ -187,7 +189,8 @@ namespace Yandere.Output.Components
                         continue;
                     }
                 }
-                FileSavingHelper.AddDownloadTask(image, type, (info) => {
+                FileSavingHelper.AddDownloadTask(image, type, (info) =>
+                {
                     var brick = MainContainer.Controls[info.id.ToString()] as ImageBrick;
                     if (brick != null)
                     {
@@ -205,7 +208,7 @@ namespace Yandere.Output.Components
 
         public async Task AddMark()
         {
-            var data = SelectedImages.Where(x=>x.IsMark == false).Select(x => x.id);
+            var data = SelectedImages.Where(x => x.IsMark == false).Select(x => x.id);
             var success = await _imageMarkService.AddMarks(data);
             if (success)
             {
