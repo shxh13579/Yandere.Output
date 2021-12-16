@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -12,7 +13,7 @@ namespace Yandere.Output
     {
         private ImageApiService _service;
 
-        private System.Timers.Timer _tagSearchTimer = new System.Timers.Timer(2000);
+        private System.Timers.Timer _tagSearchTimer = new System.Timers.Timer(1000);
 
         private List<YandereImage> _markList = new List<YandereImage>();
 
@@ -52,11 +53,26 @@ namespace Yandere.Output
             _tagSearchTimer.AutoReset = false;
             SelectTags.GotFocus += (e, v) =>
             {
+                Debug.WriteLine("got focus");
                 _allowAutoComplete = true;
+            };
+            SelectTags.SelectedValueChanged += (e, v) =>
+            {
+                _allowAutoComplete = false;
+            };
+            SelectTags.KeyDown += async (e, v) =>
+            {
+                if (v.KeyCode == Keys.Enter)
+                {
+                    button1_Click(null, null);
+                    _allowAutoComplete = true;
+                }
             };
             SelectTags.LostFocus += (e, v) =>
             {
+                Debug.WriteLine("lost focus");
                 _allowAutoComplete = false;
+                _tagSearchTimer.Stop();
             };
             _tagSearchTimer.Elapsed += (e, v) =>
             {
