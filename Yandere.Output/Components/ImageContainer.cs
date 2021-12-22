@@ -115,7 +115,7 @@ namespace Yandere.Output.Components
                     continue;
                 }
                 _data.Add(info);
-                var brick = new ImageBrick(info) { Width = 100, Height = 100 };
+                var brick = new ImageBrick(info) { Width = 60, Height = 60 };
                 brick.MarkEvent += async (id, check) =>
                {
                    using (ImageMarkService service = new ImageMarkService())
