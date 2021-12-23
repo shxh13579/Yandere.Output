@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -51,47 +50,50 @@ namespace Yandere.Output
         {
             _tagSearchTimer.Enabled = true;
             _tagSearchTimer.AutoReset = false;
+
             SelectTags.GotFocus += (e, v) =>
             {
-                Debug.WriteLine("got focus");
                 _allowAutoComplete = true;
             };
             SelectTags.SelectedValueChanged += (e, v) =>
             {
                 _allowAutoComplete = false;
             };
-            SelectTags.KeyDown += async (e, v) =>
+            SelectTags.KeyDown += (e, v) =>
             {
                 if (v.KeyCode == Keys.Enter)
                 {
                     button1_Click(null, null);
+                    SearchBtn.Focus();
                     _allowAutoComplete = true;
                 }
             };
+            SelectTags.DropDownClosed += (e, v) =>
+            {
+                _allowAutoComplete = true;
+            };
             SelectTags.LostFocus += (e, v) =>
             {
-                Debug.WriteLine("lost focus");
                 _allowAutoComplete = false;
                 _tagSearchTimer.Stop();
             };
             _tagSearchTimer.Elapsed += (e, v) =>
             {
-                SelectTags.Invoke(new Action(async () =>
-               {
-                   var text = SelectTags.Text;
-                   if (string.IsNullOrEmpty(text))
-                   {
-                       return;
-                   }
-                   var tags = (await _service.GetTagList(text)).Select(x => x.name).ToList();
-                   SelectTags.DataSource = tags;
-                   SelectTags.DroppedDown = true;
-                   //todo
-               }));
-                //ErrorMsg.Invoke(new Action(() =>
-                //{
-                //    ErrorMsg.Text += "1";
-                //}));
+                if (_allowAutoComplete)
+                {
+                    SelectTags.Invoke(new Action(async () =>
+                    {
+                        var text = SelectTags.Text;
+                        if (string.IsNullOrEmpty(text))
+                        {
+                            return;
+                        }
+                        var tags = (await _service.GetTagList(text)).Select(x => x.name).ToList();
+                        SelectTags.DataSource = tags;
+                        SelectTags.DroppedDown = true;
+                        //todo
+                    }));
+                }
             };
             Container.InitDataContext();
         }

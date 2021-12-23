@@ -22,7 +22,7 @@ namespace Yandere.Output.Components
 
         public YandereImage ImageInfo { get { return _imageInfo; } }
 
-        public Func<int,bool ,Task<bool>> MarkEvent = null;
+        public Func<int, bool, Task<bool>> MarkEvent = null;
 
         public void RefreshStat()
         {
@@ -67,7 +67,7 @@ namespace Yandere.Output.Components
 
 
         }
-    
+
 
         public ImageBrick(string url)
         {
@@ -166,11 +166,11 @@ namespace Yandere.Output.Components
         {
             if (Width > Height)
             {
-                Height = Width;
+                Width = Height;
             }
             else if (Height > Width)
             {
-                Width = Height;
+                Height = Width;
             }
         }
 
@@ -189,14 +189,16 @@ namespace Yandere.Output.Components
 
         private void DownloadBtn_Click(object sender, EventArgs e)
         {
-            FileSavingHelper.AddDownloadTask(_imageInfo,ImageType.JPG,(info)=> {
+            FileSavingHelper.AddDownloadTask(_imageInfo, ImageType.JPG, (info) =>
+            {
                 RefreshStat();
             });
         }
 
         private void PNGDownloadBtn_Click(object sender, EventArgs e)
         {
-            FileSavingHelper.AddDownloadTask(_imageInfo,ImageType.PNG, (info) => {
+            FileSavingHelper.AddDownloadTask(_imageInfo, ImageType.PNG, (info) =>
+            {
                 RefreshStat();
             });
         }
@@ -207,7 +209,7 @@ namespace Yandere.Output.Components
             {
                 if (!_imageInfo.IsMark)
                 {
-                    var success = await MarkEvent(_imageInfo.id,true);
+                    var success = await MarkEvent(_imageInfo.id, true);
                     if (success)
                     {
                         _imageInfo.IsMark = true;
