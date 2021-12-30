@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace Yandere.Output.Models
+namespace Yandere.Common.Models
 {
 
     public class Configurations
@@ -16,6 +16,7 @@ namespace Yandere.Output.Models
             set
             {
                 _savePath = value;
+
                 foreach (var name in Enum.GetNames(typeof(ImageType)))
                 {
                     if (!Directory.Exists(_savePath + "\\" + name))

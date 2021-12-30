@@ -1,14 +1,12 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace Yandere.Output.Helper
+namespace Yandere.Common.Helper
 {
-    public class HttpHelper:IDisposable
+    public class HttpHelper : IDisposable
     {
         public void Dispose()
         {
@@ -23,18 +21,18 @@ namespace Yandere.Output.Helper
             _client.Timeout = TimeSpan.FromSeconds(30);
         }
 
-        public async Task<T> Post<T>(string url,object body)
+        public async Task<T> Post<T>(string url, object body)
         {
             try
             {
-                using(var content = new StringContent(JsonConvert.SerializeObject(body)))
+                using (var content = new StringContent(JsonConvert.SerializeObject(body)))
                 {
                     var resp = await _client.PostAsync(url, content).ConfigureAwait(false);
                     var resultData = await resp.Content.ReadAsStringAsync();
                     return JsonConvert.DeserializeObject<T>(resultData);
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return default(T);
             }
@@ -52,7 +50,7 @@ namespace Yandere.Output.Helper
                 return default(T);
             }
         }
-        public async Task<Stream> GetFileStream(string url, string param="")
+        public async Task<Stream> GetFileStream(string url, string param = "")
         {
             try
             {

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Yandere.Output.Models
+namespace Yandere.Common.Models
 {
     [Table("MarkInfo")]
     public class MarkInfo

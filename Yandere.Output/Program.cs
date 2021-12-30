@@ -1,10 +1,11 @@
 using Newtonsoft.Json;
 using System;
+using System.Configuration;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
-using Yandere.Output.Helper;
-using Yandere.Output.Models;
+using Yandere.Common.Helper;
+using Yandere.Common.Models;
 
 namespace Yandere.Output
 {
@@ -44,6 +45,9 @@ namespace Yandere.Output
             config.Read(bytes, 0, (int)config.Length);
             var data = Encoding.Default.GetString(bytes);
             ConfigurationHelper.Configuration = JsonConvert.DeserializeObject<Configurations>(data);
+            FileSavingHelper.SavePath = ConfigurationHelper.Configuration.SavePath;
+            ConfigurationHelper.Settings = new Settings();
+            ConfigurationHelper.Settings.IsNSFW = bool.Parse(ConfigurationManager.AppSettings["IsNSFW"].ToString() ?? "False");
         }
 
         static void Application_ThreadException(object sender, System.Threading.ThreadExceptionEventArgs e)

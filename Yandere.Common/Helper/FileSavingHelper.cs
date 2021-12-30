@@ -1,19 +1,16 @@
 ﻿using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.IO;
 using System.Threading;
-using System.Windows.Forms;
-using Yandere.Output.Models;
-using Yandere.Output.Services;
+using Yandere.Common.Models;
+using Yandere.Common.Services;
 
-namespace Yandere.Output.Helper
+namespace Yandere.Common.Helper
 {
     public static class FileSavingHelper
     {
+        public static string SavePath { get; set; }
 
-
-        public static void AddDownloadTask(YandereImage imageInfo, ImageType type,Action<YandereImage> act = null)
+        public static void AddDownloadTask(YandereImage imageInfo, ImageType type, Action<YandereImage> act = null)
         {
             if (ThreadPool.ThreadCount < 30)
             {
@@ -43,7 +40,7 @@ namespace Yandere.Output.Helper
                 {
                     using (HttpHelper http = new HttpHelper())
                     {
-                        var path = ConfigurationHelper.Configuration.SavePath + "\\" + Enum.GetName(type) + "\\" + fileName;
+                        var path = SavePath + "\\" + Enum.GetName(type) + "\\" + fileName;
                         if (!File.Exists(path))
                         {
                             var file = await http.GetBytes(url);

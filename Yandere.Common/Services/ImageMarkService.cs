@@ -1,15 +1,11 @@
-﻿using CsvHelper;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows.Forms;
-using Yandere.Output.Models;
+using Yandere.Common.Models;
 
-namespace Yandere.Output.Services
+namespace Yandere.Common.Services
 {
     public class ImageMarkService : IDisposable
     {
@@ -17,7 +13,7 @@ namespace Yandere.Output.Services
 
         public ImageMarkService()
         {
-            _db  = new ImageDBContext();
+            _db = new ImageDBContext();
         }
 
 
@@ -29,9 +25,9 @@ namespace Yandere.Output.Services
                 return true;
             }
 
-            var existList = await _db .MarkInfo.Select(x => x.id).ToListAsync();
+            var existList = await _db.MarkInfo.Select(x => x.id).ToListAsync();
             var addList = idList.Where(x => !existList.Contains(x)).Select(x => new MarkInfo() { id = x });
-            await _db .MarkInfo.AddRangeAsync(addList);
+            await _db.MarkInfo.AddRangeAsync(addList);
             return true;
 
         }
@@ -43,9 +39,9 @@ namespace Yandere.Output.Services
                 return true;
             }
 
-            var existList = await _db .MarkInfo.Select(x => x.id).ToListAsync();
+            var existList = await _db.MarkInfo.Select(x => x.id).ToListAsync();
             var addList = idList.Where(x => existList.Contains(x)).Select(x => new MarkInfo() { id = x });
-            _db .MarkInfo.RemoveRange(addList);
+            _db.MarkInfo.RemoveRange(addList);
             return true;
 
         }

@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Yandere.Output.Helper;
-using Yandere.Output.Models;
+using Yandere.Common.Helper;
+using Yandere.Common.Models;
 
 namespace Yandere.Output.Components
 {
@@ -89,6 +89,7 @@ namespace Yandere.Output.Components
 
         private void InitFormat()
         {
+            Name = _imageInfo.id.ToString();
             MouseClick += ImageBrick_MouseClick;
             ImageContent.MouseDoubleClick += ImageBrick_MouseDoubleClick;
             if (string.IsNullOrEmpty(_imageInfo.source))
