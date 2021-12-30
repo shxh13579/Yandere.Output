@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Yandere.Output.Models;
+﻿using Yandere.Common.Models;
 
-namespace Yandere.Output.Helper
+namespace Yandere.Common.Helper
 {
     public static class ConfigurationHelper
     {

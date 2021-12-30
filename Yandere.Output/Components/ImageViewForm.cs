@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
-using Yandere.Output.Helper;
-using Yandere.Output.Models;
+using Yandere.Common.Helper;
+using Yandere.Common.Models;
 
 namespace Yandere.Output.Components
 {
@@ -51,12 +51,12 @@ namespace Yandere.Output.Components
 
         private void saveJpgBtn_Click(object sender, EventArgs e)
         {
-            FileSavingHelper.AddDownloadTask(_imageInfo,ImageType.JPG);
+            FileSavingHelper.AddDownloadTask(_imageInfo, ImageType.JPG);
         }
 
         private void savePngBtn_Click(object sender, EventArgs e)
         {
-            FileSavingHelper.AddDownloadTask(_imageInfo,ImageType.PNG);
+            FileSavingHelper.AddDownloadTask(_imageInfo, ImageType.PNG);
 
         }
     }

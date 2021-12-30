@@ -24,7 +24,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Models\" />
     <Folder Include="Result\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Yandere.Common\Yandere.Common.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -4,9 +4,9 @@ using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Yandere.Output.Helper;
-using Yandere.Output.Models;
-using Yandere.Output.Services;
+using Yandere.Common.Helper;
+using Yandere.Common.Models;
+using Yandere.Common.Services;
 
 namespace Yandere.Output.Components
 {

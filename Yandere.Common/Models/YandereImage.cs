@@ -1,4 +1,4 @@
-﻿namespace Yandere.Output.Models
+﻿namespace Yandere.Common.Models
 {
     public class YandereImage
     {

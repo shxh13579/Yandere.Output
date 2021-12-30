@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Yandere.Output.Models;
-using Yandere.Output.Services;
+using Yandere.Common.Models;
+using Yandere.Common.Services;
 
 namespace Yandere.Output
 {

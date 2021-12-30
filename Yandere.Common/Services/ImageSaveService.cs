@@ -2,11 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Yandere.Output.Models;
+using Yandere.Common.Models;
 
-namespace Yandere.Output.Services
+namespace Yandere.Common.Services
 {
     public class ImageSaveService : IDisposable
     {
@@ -71,7 +70,7 @@ namespace Yandere.Output.Services
 
         public async Task<bool> AddDownloadData(DownloadInfo info, ImageType type)
         {
-            var exist = await _db.DownloadInfo.Where(x=>x.id ==info.id).FirstOrDefaultAsync();
+            var exist = await _db.DownloadInfo.Where(x => x.id == info.id).FirstOrDefaultAsync();
             if (exist != default)
             {
                 if ((!exist.IsJPGDownload && type == ImageType.JPG) || (!exist.IsPNGDownload && type == ImageType.PNG))

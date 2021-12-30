@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Yandere.Output.Helper;
-using Yandere.Output.Models;
+using Yandere.Common.Helper;
+using Yandere.Common.Models;
 
-namespace Yandere.Output.Services
+namespace Yandere.Common.Services
 {
     public class ImageApiService
     {
