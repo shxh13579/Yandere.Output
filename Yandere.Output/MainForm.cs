@@ -101,10 +101,10 @@ namespace Yandere.Output
         private async void button1_Click(object sender, EventArgs e)
         {
             currentPage = 1;
-            await LoadImageData(1);
+            await LoadImageData(1, true);
         }
 
-        private async Task<bool> LoadImageData(int page)
+        private async Task<bool> LoadImageData(int page, bool reload = false)
         {
             Container.ClearContainer();
             var pageSize = 20;
@@ -123,11 +123,11 @@ namespace Yandere.Output
             {
                 data = data.Where(x => x.rating == "s").ToList();
             }
-            await Container.LoadData(data);
+            await Container.LoadData(data, reload);
             Container.NextPageFunction = async (nextPage) =>
             {
                 nextPage += 1;
-                data = await _service.GetList(nextPage, "elf", pageSize);
+                data = await _service.GetList(nextPage, SelectTags.Text, pageSize);
                 await Container.LoadData(data);
                 return nextPage;
             };
