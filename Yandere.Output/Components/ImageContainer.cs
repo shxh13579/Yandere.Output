@@ -100,13 +100,17 @@ namespace Yandere.Output.Components
             MainContainer.Controls.Clear();
         }
 
-        public async Task LoadData(List<YandereImage> data)
+        public async Task LoadData(List<YandereImage> data, bool reload = false)
         {
             if (MainContainer.Controls.Count > 0)
             {
                 var btn = MainContainer.Controls[MainContainer.Controls.Count - 1];
                 btn.Dispose();
                 MainContainer.Controls.RemoveAt(MainContainer.Controls.Count - 1);
+            }
+            if (reload)
+            {
+                _data = new List<YandereImage>();
             }
             foreach (var info in data)
             {
@@ -128,13 +132,14 @@ namespace Yandere.Output.Components
                 MainContainer.Controls.Add(brick);
             }
 
-            var moreBtn = new Button() { FlatStyle = FlatStyle.Flat, Text = "More", Width = MainContainer.Width - 30, Height = 30, Font = new Font("Microsoft YaHei UI", 12, FontStyle.Regular) };
+            var moreBtn = new Button() { Name = "moreBtn", FlatStyle = FlatStyle.Flat, Text = "More", Width = MainContainer.Width - 30, Height = 30, Font = new Font("Microsoft YaHei UI", 12, FontStyle.Regular) };
             moreBtn.Click += async (e, v) =>
             {
                 if (NextPageFunction != null)
                     page = await NextPageFunction(page);
             };
             MainContainer.Controls.Add(moreBtn);
+            MainContainer.SetFlowBreak(moreBtn, true);
         }
 
         public void SelectAllImages(bool isSelected)
