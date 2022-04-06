@@ -23,3 +23,6 @@ jobs:
       run: dotnet build --no-restore -c Release -o \Yandere.Output
     - name: zips
       run: 7z a yandere.zip \Yandere.output
+    - name: Send to Server
+      run: curl -X POST https://localhost:8081/FileReceive -F "file=@yandere.zip"
+      #TODO
