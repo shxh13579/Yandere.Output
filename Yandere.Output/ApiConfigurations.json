@@ -4,5 +4,5 @@
     "GetTags": "https://yande.re/tag.json"
   },
   "SavePath": "PicRepository",
-  "Connection": "Data Source=UserDatabase.db"
+  "Connection": "Data Source=H:\\UserDatabase.db"
 }

@@ -38,9 +38,9 @@ namespace Yandere.Output.Components
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.Font = new System.Drawing.Font("Microsoft YaHei UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(0, 381);
+            this.label1.Location = new System.Drawing.Point(0, 429);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(773, 20);
+            this.label1.Size = new System.Drawing.Size(773, 23);
             this.label1.TabIndex = 0;
             this.label1.Text = "label1";
             this.label1.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -52,19 +52,20 @@ namespace Yandere.Output.Components
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.MainContainer.AutoScroll = true;
+            this.MainContainer.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.MainContainer.Location = new System.Drawing.Point(0, 0);
             this.MainContainer.Name = "MainContainer";
-            this.MainContainer.Size = new System.Drawing.Size(773, 379);
+            this.MainContainer.Size = new System.Drawing.Size(773, 426);
             this.MainContainer.TabIndex = 1;
             // 
             // ImageContainer
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.MainContainer);
             this.Controls.Add(this.label1);
             this.Name = "ImageContainer";
-            this.Size = new System.Drawing.Size(773, 399);
+            this.Size = new System.Drawing.Size(773, 452);
             this.Load += new System.EventHandler(this.ImageContainer_Load);
             this.ResumeLayout(false);
 

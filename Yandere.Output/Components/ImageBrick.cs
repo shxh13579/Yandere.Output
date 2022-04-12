@@ -30,12 +30,12 @@ namespace Yandere.Output.Components
             {
                 if (_imageInfo.IsMark)
                 {
-                    PNGDownloadBtn.BackColor = Color.LightGreen;
+                    FavBtn.BackColor = Color.LightGreen;
                     FavBtn.Image = Resouces.Favorited;
                 }
                 else
                 {
-                    PNGDownloadBtn.BackColor = Color.LightGray;
+                    FavBtn.BackColor = Color.LightGray;
                     FavBtn.Image = Resouces.favorite;
                 }
             }));

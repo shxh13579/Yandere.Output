@@ -119,7 +119,7 @@ namespace Yandere.Output.Components
                     continue;
                 }
                 _data.Add(info);
-                var brick = new ImageBrick(info) { Width = 60, Height = 60 };
+                var brick = new ImageBrick(info) { Width = 260, Height = 260 };
                 brick.MarkEvent += async (id, check) =>
                {
                    using (ImageMarkService service = new ImageMarkService())
@@ -139,7 +139,7 @@ namespace Yandere.Output.Components
                     page = await NextPageFunction(page);
             };
             MainContainer.Controls.Add(moreBtn);
-            MainContainer.SetFlowBreak(moreBtn, true);
+            //MainContainer.SetFlowBreak(moreBtn, true);
         }
 
         public void SelectAllImages(bool isSelected)
