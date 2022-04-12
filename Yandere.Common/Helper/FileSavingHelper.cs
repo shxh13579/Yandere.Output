@@ -72,6 +72,18 @@ namespace Yandere.Common.Helper
                                 }
                             }
                         }
+                        else
+                        {
+                            if (type == ImageType.JPG)
+                            {
+                                imageInfo.IsJPGDownload = true;
+                            }
+                            else
+                            {
+                                imageInfo.IsPNGDownload = true;
+                            }
+                            act(imageInfo);
+                        }
                     }
                 }));
             }

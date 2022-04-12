@@ -291,7 +291,7 @@ namespace Yandere.Output
             | System.Windows.Forms.AnchorStyles.Right)));
             this.Container.Location = new System.Drawing.Point(12, 42);
             this.Container.Name = "Container";
-            this.Container.Size = new System.Drawing.Size(860, 484);
+            this.Container.Size = new System.Drawing.Size(860, 507);
             this.Container.TabIndex = 24;
             // 
             // MainForm
